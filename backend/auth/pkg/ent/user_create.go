@@ -10,7 +10,7 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent/user"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent/user"
 )
 
 // UserCreate is the builder for creating a User entity.

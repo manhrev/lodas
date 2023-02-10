@@ -5,9 +5,9 @@ import (
 	"log"
 	"strings"
 
-	"github.com/manhrev/runtracking/backend/auth/internal/service/token"
-	pb "github.com/manhrev/runtracking/backend/auth/pkg/api"
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent"
+	"github.com/manhrev/lodas/backend/auth/internal/service/token"
+	pb "github.com/manhrev/lodas/backend/auth/pkg/api"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent"
 )
 
 type Auth interface {

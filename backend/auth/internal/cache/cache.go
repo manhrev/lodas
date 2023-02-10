@@ -7,10 +7,10 @@ import (
 	"time"
 
 	v8 "github.com/go-redis/redis/v8"
-	"github.com/manhrev/runtracking/backend/auth/config"
-	"github.com/manhrev/runtracking/backend/auth/internal/cache/token"
-	u "github.com/manhrev/runtracking/backend/auth/internal/cache/user"
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent"
+	"github.com/manhrev/lodas/backend/auth/config"
+	"github.com/manhrev/lodas/backend/auth/internal/cache/token"
+	u "github.com/manhrev/lodas/backend/auth/internal/cache/user"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent"
 )
 
 var _defaultTTL = 24 * time.Hour

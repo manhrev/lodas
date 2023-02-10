@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent"
 )
 
 // The UserFunc type is an adapter to allow the use of ordinary

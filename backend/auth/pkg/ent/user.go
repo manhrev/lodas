@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent/user"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent/user"
 )
 
 // User is the model entity for the User schema.

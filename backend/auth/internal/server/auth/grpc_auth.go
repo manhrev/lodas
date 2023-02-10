@@ -3,13 +3,13 @@ package auth
 import (
 	"context"
 
-	"github.com/manhrev/runtracking/backend/auth/internal/cache"
-	"github.com/manhrev/runtracking/backend/auth/internal/feature/signin"
-	"github.com/manhrev/runtracking/backend/auth/internal/feature/signup"
-	"github.com/manhrev/runtracking/backend/auth/internal/service/token"
-	auth "github.com/manhrev/runtracking/backend/auth/pkg/api"
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent"
-	"github.com/manhrev/runtracking/backend/auth/pkg/extractor"
+	"github.com/manhrev/lodas/backend/auth/internal/cache"
+	"github.com/manhrev/lodas/backend/auth/internal/feature/signin"
+	"github.com/manhrev/lodas/backend/auth/internal/feature/signup"
+	"github.com/manhrev/lodas/backend/auth/internal/service/token"
+	auth "github.com/manhrev/lodas/backend/auth/pkg/api"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent"
+	"github.com/manhrev/lodas/backend/auth/pkg/extractor"
 	log "github.com/sirupsen/logrus"
 )
 

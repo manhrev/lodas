@@ -3,10 +3,10 @@ package signup
 import (
 	"context"
 
-	"github.com/manhrev/runtracking/backend/auth/internal/feature/signup/auth"
-	"github.com/manhrev/runtracking/backend/auth/internal/service/token"
-	pb "github.com/manhrev/runtracking/backend/auth/pkg/api"
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent"
+	"github.com/manhrev/lodas/backend/auth/internal/feature/signup/auth"
+	"github.com/manhrev/lodas/backend/auth/internal/service/token"
+	pb "github.com/manhrev/lodas/backend/auth/pkg/api"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent"
 )
 
 type SignUp interface {

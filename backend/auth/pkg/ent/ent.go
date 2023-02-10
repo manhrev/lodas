@@ -10,7 +10,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent/user"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent/user"
 )
 
 // ent aliases to avoid import conflicts in user's code.

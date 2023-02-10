@@ -4,10 +4,10 @@ import (
 	"context"
 	"errors"
 
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent/user"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent/user"
 
-	"github.com/manhrev/runtracking/backend/auth/internal/status"
-	auth "github.com/manhrev/runtracking/backend/auth/pkg/api"
+	"github.com/manhrev/lodas/backend/auth/internal/status"
+	auth "github.com/manhrev/lodas/backend/auth/pkg/api"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 

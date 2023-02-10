@@ -7,7 +7,7 @@ import (
 
 	v8 "github.com/go-redis/redis/v8"
 
-	"github.com/manhrev/runtracking/backend/auth/internal/service/token/signer"
+	"github.com/manhrev/lodas/backend/auth/internal/service/token/signer"
 )
 
 type accessToken struct {

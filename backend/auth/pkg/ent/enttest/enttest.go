@@ -5,12 +5,12 @@ package enttest
 import (
 	"context"
 
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent"
 	// required by schema hooks.
-	_ "github.com/manhrev/runtracking/backend/auth/pkg/ent/runtime"
+	_ "github.com/manhrev/lodas/backend/auth/pkg/ent/runtime"
 
 	"entgo.io/ent/dialect/sql/schema"
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent/migrate"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent/migrate"
 )
 
 type (

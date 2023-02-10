@@ -4,7 +4,7 @@ import (
 	grpccodes "google.golang.org/grpc/codes"
 	grpcstatus "google.golang.org/grpc/status"
 
-	code "github.com/manhrev/runtracking/backend/auth/pkg/code"
+	code "github.com/manhrev/lodas/backend/auth/pkg/code"
 )
 
 const DefaultInvalidMessage = "{\"attempts\":0,\"max_attempts\":0}"

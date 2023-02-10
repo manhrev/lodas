@@ -7,9 +7,9 @@ import (
 	"time"
 
 	v8 "github.com/go-redis/redis/v8"
-	"github.com/manhrev/runtracking/backend/auth/pkg/data"
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent"
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent/user"
+	"github.com/manhrev/lodas/backend/auth/pkg/data"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent/user"
 	"google.golang.org/protobuf/proto"
 )
 

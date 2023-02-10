@@ -9,8 +9,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent/predicate"
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent/user"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent/predicate"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent/user"
 
 	"entgo.io/ent"
 )

@@ -8,9 +8,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent/migrate"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent/migrate"
 
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent/user"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent/user"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"

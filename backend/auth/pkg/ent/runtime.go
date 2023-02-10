@@ -5,8 +5,8 @@ package ent
 import (
 	"time"
 
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent/schema"
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent/user"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent/schema"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent/user"
 )
 
 // The init function reads all schema descriptors with runtime code

@@ -1,7 +1,7 @@
 package token
 
 import (
-	"github.com/manhrev/runtracking/backend/auth/internal/service/token/signer"
+	"github.com/manhrev/lodas/backend/auth/internal/service/token/signer"
 )
 
 type Tokens struct {

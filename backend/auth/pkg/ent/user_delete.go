@@ -9,8 +9,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent/predicate"
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent/user"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent/predicate"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent/user"
 )
 
 // UserDelete is the builder for deleting a User entity.

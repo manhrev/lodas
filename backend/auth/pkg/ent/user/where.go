@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/manhrev/runtracking/backend/auth/pkg/ent/predicate"
+	"github.com/manhrev/lodas/backend/auth/pkg/ent/predicate"
 )
 
 // ID filters vertices based on their ID field.

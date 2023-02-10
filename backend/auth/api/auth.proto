@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package auth;
 
-option go_package = "github.com/manhrev/runtracking/backend/auth/pkg/api;auth";
+option go_package = "github.com/manhrev/lodas/backend/auth/pkg/api;auth";
 import "google/protobuf/empty.proto";
 
 service Auth {

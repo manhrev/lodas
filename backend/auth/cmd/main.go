@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/manhrev/runtracking/backend/auth/internal/server"
+	"github.com/manhrev/lodas/backend/auth/internal/server"
 )
 
 func main() {

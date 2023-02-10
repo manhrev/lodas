@@ -9,11 +9,11 @@ import (
 
 	corev3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
 	authv3 "github.com/envoyproxy/go-control-plane/envoy/service/auth/v3"
-	"github.com/manhrev/runtracking/backend/auth/internal/cache"
-	"github.com/manhrev/runtracking/backend/auth/internal/service/token"
-	"github.com/manhrev/runtracking/backend/auth/internal/service/token/signer"
-	"github.com/manhrev/runtracking/backend/auth/pkg/data"
-	"github.com/manhrev/runtracking/backend/auth/pkg/header"
+	"github.com/manhrev/lodas/backend/auth/internal/cache"
+	"github.com/manhrev/lodas/backend/auth/internal/service/token"
+	"github.com/manhrev/lodas/backend/auth/internal/service/token/signer"
+	"github.com/manhrev/lodas/backend/auth/pkg/data"
+	"github.com/manhrev/lodas/backend/auth/pkg/header"
 
 	typev3 "github.com/envoyproxy/go-control-plane/envoy/type/v3"
 	"github.com/gogo/googleapis/google/rpc"

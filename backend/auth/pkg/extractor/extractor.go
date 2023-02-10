@@ -5,7 +5,7 @@ import (
 	"errors"
 	"strconv"
 
-	"github.com/manhrev/runtracking/backend/auth/pkg/header"
+	"github.com/manhrev/lodas/backend/auth/pkg/header"
 	"google.golang.org/grpc/metadata"
 )
 

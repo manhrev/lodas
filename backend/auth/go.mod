@@ -1,4 +1,4 @@
-module github.com/manhrev/runtracking/backend/auth
+module github.com/manhrev/lodas/backend/auth
 
 go 1.18
 
