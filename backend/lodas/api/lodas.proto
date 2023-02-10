@@ -1,0 +1,209 @@
+syntax = "proto3";
+
+package lodas;
+
+option go_package = "github.com/manhrev/lodas/backend/lodas/pkg/api;lodas";
+
+import "google/protobuf/timestamp.proto";
+
+service Lodas {
+    rpc CreateSheet(CreateSheetRequest) returns (CreateSheetReply); 
+    rpc DeleteSheet(DeleteSheetRequest) returns (DeleteSheetReply);
+    rpc UpdateSheet(UpdateSheetRequest) returns (UpdateSheetReply);
+    rpc ListSheets(ListSheetsRequest) returns (ListSheetsReply);
+    
+
+    rpc ListRecords(ListRecordsRequest) returns (ListRecordsReply);
+    rpc CreateRecord(CreateRecordRequest) returns (CreateRecordReply);
+}
+
+message CreateSheetRequest {
+    string name = 1;
+    Area area = 2;
+    Province province = 3;
+    float ratio = 4;
+    google.protobuf.Timestamp result_time = 5;
+}
+
+message CreateSheetReply {
+}
+
+enum Area {
+    AREA_UNSPECIFIED = 0;
+    AREA_BAC = 1;
+    AREA_TRUNG = 2;
+}
+
+enum Province {
+    UNSPECIFIED = 0;
+
+    PHU_YEN = 1;
+    HUE = 2; 
+
+    DAK_LAK = 3;
+    QUANG_NAM = 4;
+    
+    DA_NANG = 5;
+    KHANH_HOA = 6;
+
+    BINH_DINH = 7;
+    QUANG_BINH = 8;
+    QUANG_TRI = 9;
+
+    GIA_LAI = 10;
+    NINH_THUAN = 11;
+    
+    //DA_NANG
+    DAK_NONG = 12;
+    QUANG_NGAI = 13;
+
+    //KHANH_HOA
+    //HUE
+    KON_TUM = 14;
+
+    MIEN_BAC = 15;
+}
+
+message DeleteSheetRequest {
+    repeated int64 sheet_ids = 1;
+}
+
+message DeleteSheetReply {
+}
+
+message UpdateSheetRequest {
+}
+
+message UpdateSheetReply {
+}
+
+message ListSheetsRequest {
+    uint32 limit = 1;
+    uint64 offset = 2;
+    bool ascending = 3;
+    SheetSortBy sort_by = 4;
+    google.protobuf.Timestamp from = 5;
+    google.protobuf.Timestamp to = 6;
+}
+
+enum SheetSortBy {
+    SHEET_SORT_BY_UNSPECIFIED = 0;
+    //...
+}
+
+message ListSheetsReply {
+    repeated SheetInfo sheets = 1;
+}
+
+message SheetInfo {
+    int64 id = 1;
+    SheetStatus status = 2;
+    string name = 3;
+    Area area = 4;
+    Province province = 5;
+    float ratio = 6;
+    google.protobuf.Timestamp result_time = 7;
+    google.protobuf.Timestamp created_time = 8;
+    google.protobuf.Timestamp updated_time = 9;
+
+}
+
+enum SheetStatus {
+    SHEET_STATUS_UNSPECIFIED = 0;
+    SHEET_STATUS_NOT_SUBMITTED  = 1;
+    SHEET_STATUS_SUBMITTED = 2;
+    SHEET_STATUS_GOT_RESULT = 3;
+}
+
+message CreateRecordRequest {
+    int64 sheet_id = 5;
+    repeated string numbers = 1;
+    int64 cash = 2;
+    repeated Prize prizes = 3;
+    BetType name = 4;
+}
+
+message CreateRecordReply {
+}
+
+message ListRecordsRequest {
+    uint32 limit = 1;
+    uint64 offset = 2;
+    bool ascending = 3;
+    RecordSortBy sort_by = 4;
+    google.protobuf.Timestamp from = 5;
+    google.protobuf.Timestamp to = 6;
+}
+
+enum RecordSortBy {
+    RECORD_SORT_BY_UNSPECIFIED = 0;
+    //...
+}
+
+message ListRecordsReply {
+    repeated Record records = 1;
+}
+
+message Record {
+    int64 sheet_id = 8;
+    repeated string numbers = 1;
+    int64 cash = 2;
+    repeated Prize prizes = 3;
+    BetType bet_type = 4;
+    int64 cash_in = 5;
+    map<string, string> win_info = 9; // prize -> number
+    int64 cash_out = 6;
+    google.protobuf.Timestamp create_time = 7;
+}
+
+enum Prize {
+    PRIZE_UNSPECIFIED = 0;
+
+    PRIZE_1DB = 1;
+    PRIZE_1G1 = 2;
+
+    PRIZE_1G2 = 3;
+    PRIZE_2G2 = 4;
+    
+    PRIZE_1G3 = 5;
+    PRIZE_2G3 = 6; 
+    PRIZE_3G3 = 7;
+    PRIZE_4G3 = 8;
+    PRIZE_5G3 = 9;
+    PRIZE_6G3 = 10;
+    
+    PRIZE_1G4 = 11;
+    PRIZE_2G4 = 12;
+    PRIZE_3G4 = 13;
+    PRIZE_4G4 = 14;
+    PRIZE_5G4 = 15;
+    PRIZE_6G4 = 16;
+    PRIZE_7G4 = 17;
+    
+    PRIZE_1G5 = 18;
+    PRIZE_2G5 = 19;
+    PRIZE_3G5 = 20;
+    PRIZE_4G5 = 21;
+    PRIZE_5G5 = 22;
+    PRIZE_6G5 = 23;
+    
+    PRIZE_1G6 = 24;
+    PRIZE_2G6 = 25;
+    PRIZE_3G6 = 26;
+    
+    PRIZE_1G7 = 27;
+    PRIZE_2G7 = 28;
+    PRIZE_3G7 = 29;
+    PRIZE_4G7 = 30;
+    
+    PRIZE_1G8 = 31;
+}
+
+enum BetType {
+    BET_TYPE_UNSPECIFIED = 0;
+    LO2 = 1;
+    LO3 = 2;
+    DE2 = 3;
+    DE3 = 4;
+    DA = 5;
+}

@@ -1,0 +1,48 @@
+version: '3.7'
+
+services:
+
+  gateway:
+    build:
+      context: backend/gateway
+      dockerfile: Dockerfile
+    container_name: gateway-lodas
+    ports:
+      - 8080:8080
+
+  lodas:
+    build:
+      context: backend/lodas
+      dockerfile: build/Dockerfile
+    container_name: lodas-service
+    depends_on:
+      - lodas_db
+
+  auth:
+    build:
+      context: backend/auth
+      dockerfile: build/Dockerfile
+    container_name: auth-lodas
+    volumes:
+      - ./backend/auth:/app
+    depends_on:
+      - auth_db
+      - redis
+
+  lodas_db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password@1
+      MYSQL_DATABASE: lodas
+    container_name: 'db-lodas'
+    volumes:
+      - "./tmp/db/auth:/var/lib/mysql"
+    ports:
+      - 33306:3306
+
+  redis:
+    image: redis:latest
+    container_name: redis-lodas
+    ports:
+      - "6379:6379"
+    # restart: always
