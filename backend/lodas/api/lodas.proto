@@ -15,13 +15,16 @@ service Lodas {
 
     rpc ListRecords(ListRecordsRequest) returns (ListRecordsReply);
     rpc CreateRecord(CreateRecordRequest) returns (CreateRecordReply);
+
+    rpc CreateBetSetting(CreateBetSettingRequest) returns (CreateBetSettingReply);
+    rpc GetBetSetting(GetBetSettingRequest) returns (GetBetSettingReply);
 }
 
 message CreateSheetRequest {
     string name = 1;
     Area area = 2;
     Province province = 3;
-    float ratio = 4;
+    double ratio = 4;
     google.protobuf.Timestamp result_time = 5;
 }
 
@@ -93,6 +96,7 @@ enum SheetSortBy {
 
 message ListSheetsReply {
     repeated SheetInfo sheets = 1;
+    int64 total = 2;
 }
 
 message SheetInfo {
@@ -101,7 +105,7 @@ message SheetInfo {
     string name = 3;
     Area area = 4;
     Province province = 5;
-    float ratio = 6;
+    double ratio = 6;
     google.protobuf.Timestamp result_time = 7;
     google.protobuf.Timestamp created_time = 8;
     google.protobuf.Timestamp updated_time = 9;
@@ -206,4 +210,27 @@ enum BetType {
     DE2 = 3;
     DE3 = 4;
     DA = 5;
+}
+
+message CreateBetSettingRequest {
+    BetSettingInfo bet_setting_info = 1;
+}
+
+message BetSettingInfo {
+    int64 LO2 = 1;
+	int64 LO3 = 2;
+	int64 DE2 = 3;
+	int64 DE3 = 4;
+	int64 DA  = 5;
+}
+
+message CreateBetSettingReply {
+}
+
+message GetBetSettingRequest {
+}
+
+message GetBetSettingReply {
+    BetSettingInfo bet_setting_info = 1;
+    google.protobuf.Timestamp created_time = 2;
 }

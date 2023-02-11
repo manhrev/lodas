@@ -1,21 +1,21 @@
-package record
+package betsetting
 
 import (
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent"
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent/schema"
 )
 
-type Record interface {
+type BetSetting interface {
 }
 
-type recordImpl struct {
+type betSettingImpl struct {
 	entClient *ent.Client
 }
 
-func New(entCient *ent.Client) Record {
+func New(entCient *ent.Client) BetSetting {
 	entCient.Record.Create().SetWinInfo(&schema.PrizeMap{})
 
-	return &recordImpl{
+	return &betSettingImpl{
 		entClient: entCient,
 	}
 

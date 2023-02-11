@@ -28,6 +28,8 @@ type LodasClient interface {
 	ListSheets(ctx context.Context, in *ListSheetsRequest, opts ...grpc.CallOption) (*ListSheetsReply, error)
 	ListRecords(ctx context.Context, in *ListRecordsRequest, opts ...grpc.CallOption) (*ListRecordsReply, error)
 	CreateRecord(ctx context.Context, in *CreateRecordRequest, opts ...grpc.CallOption) (*CreateRecordReply, error)
+	CreateBetSetting(ctx context.Context, in *CreateBetSettingRequest, opts ...grpc.CallOption) (*CreateBetSettingReply, error)
+	GetBetSetting(ctx context.Context, in *GetBetSettingRequest, opts ...grpc.CallOption) (*GetBetSettingReply, error)
 }
 
 type lodasClient struct {
@@ -92,6 +94,24 @@ func (c *lodasClient) CreateRecord(ctx context.Context, in *CreateRecordRequest,
 	return out, nil
 }
 
+func (c *lodasClient) CreateBetSetting(ctx context.Context, in *CreateBetSettingRequest, opts ...grpc.CallOption) (*CreateBetSettingReply, error) {
+	out := new(CreateBetSettingReply)
+	err := c.cc.Invoke(ctx, "/lodas.Lodas/CreateBetSetting", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *lodasClient) GetBetSetting(ctx context.Context, in *GetBetSettingRequest, opts ...grpc.CallOption) (*GetBetSettingReply, error) {
+	out := new(GetBetSettingReply)
+	err := c.cc.Invoke(ctx, "/lodas.Lodas/GetBetSetting", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LodasServer is the server API for Lodas service.
 // All implementations must embed UnimplementedLodasServer
 // for forward compatibility
@@ -102,6 +122,8 @@ type LodasServer interface {
 	ListSheets(context.Context, *ListSheetsRequest) (*ListSheetsReply, error)
 	ListRecords(context.Context, *ListRecordsRequest) (*ListRecordsReply, error)
 	CreateRecord(context.Context, *CreateRecordRequest) (*CreateRecordReply, error)
+	CreateBetSetting(context.Context, *CreateBetSettingRequest) (*CreateBetSettingReply, error)
+	GetBetSetting(context.Context, *GetBetSettingRequest) (*GetBetSettingReply, error)
 	mustEmbedUnimplementedLodasServer()
 }
 
@@ -126,6 +148,12 @@ func (UnimplementedLodasServer) ListRecords(context.Context, *ListRecordsRequest
 }
 func (UnimplementedLodasServer) CreateRecord(context.Context, *CreateRecordRequest) (*CreateRecordReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRecord not implemented")
+}
+func (UnimplementedLodasServer) CreateBetSetting(context.Context, *CreateBetSettingRequest) (*CreateBetSettingReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateBetSetting not implemented")
+}
+func (UnimplementedLodasServer) GetBetSetting(context.Context, *GetBetSettingRequest) (*GetBetSettingReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBetSetting not implemented")
 }
 func (UnimplementedLodasServer) mustEmbedUnimplementedLodasServer() {}
 
@@ -248,6 +276,42 @@ func _Lodas_CreateRecord_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Lodas_CreateBetSetting_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateBetSettingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LodasServer).CreateBetSetting(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/lodas.Lodas/CreateBetSetting",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LodasServer).CreateBetSetting(ctx, req.(*CreateBetSettingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Lodas_GetBetSetting_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBetSettingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LodasServer).GetBetSetting(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/lodas.Lodas/GetBetSetting",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LodasServer).GetBetSetting(ctx, req.(*GetBetSettingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Lodas_ServiceDesc is the grpc.ServiceDesc for Lodas service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -278,6 +342,14 @@ var Lodas_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateRecord",
 			Handler:    _Lodas_CreateRecord_Handler,
+		},
+		{
+			MethodName: "CreateBetSetting",
+			Handler:    _Lodas_CreateBetSetting_Handler,
+		},
+		{
+			MethodName: "GetBetSetting",
+			Handler:    _Lodas_GetBetSetting_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

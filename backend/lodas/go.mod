@@ -5,6 +5,8 @@ go 1.18
 require (
 	entgo.io/ent v0.11.7
 	github.com/go-sql-driver/mysql v1.7.0
+	github.com/manhrev/lodas/backend/auth v0.0.0-20230210155858-a30b5704b8e6
+	github.com/robfig/cron/v3 v3.0.0
 	google.golang.org/grpc v1.53.0
 	google.golang.org/protobuf v1.28.1
 )

@@ -8,6 +8,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	lodas "github.com/manhrev/lodas/backend/lodas/internal/server/lodas"
+	"github.com/manhrev/lodas/backend/lodas/internal/service/crontask"
 	pb "github.com/manhrev/lodas/backend/lodas/pkg/api"
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent"
 	"google.golang.org/grpc"
@@ -45,6 +46,10 @@ func Serve(server *grpc.Server) {
 	if err := entClient.Schema.Create(context.Background()); err != nil {
 		log.Fatalf("failed creating schema resources: %v", err)
 	}
+
+	// cron
+	task := crontask.New(entClient)
+	task.Run()
 
 	// register main and other server servers
 	pb.RegisterLodasServer(server, lodas.NewServer(entClient))

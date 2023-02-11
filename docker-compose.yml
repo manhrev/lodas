@@ -26,7 +26,7 @@ services:
     volumes:
       - ./backend/auth:/app
     depends_on:
-      - auth_db
+      - lodas_db
       - redis
 
   lodas_db:
@@ -36,7 +36,7 @@ services:
       MYSQL_DATABASE: lodas
     container_name: 'db-lodas'
     volumes:
-      - "./tmp/db/auth:/var/lib/mysql"
+      - "./tmp/db/lodas:/var/lib/mysql"
     ports:
       - 33306:3306
 
