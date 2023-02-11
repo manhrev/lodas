@@ -12,6 +12,7 @@ type BetSetting struct {
 
 func (BetSetting) Fields() []ent.Field {
 	return []ent.Field{
+		field.Int64("user_id"),
 		field.Int64("id").Unique(),
 		//map bettype (enum) to scale
 		field.JSON("values", &BetSettingMap{}),

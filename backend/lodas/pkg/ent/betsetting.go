@@ -18,6 +18,8 @@ type BetSetting struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int64 `json:"id,omitempty"`
+	// UserID holds the value of the "user_id" field.
+	UserID int64 `json:"user_id,omitempty"`
 	// Values holds the value of the "values" field.
 	Values *schema.BetSettingMap `json:"values,omitempty"`
 	// CreatedTime holds the value of the "created_time" field.
@@ -52,7 +54,7 @@ func (*BetSetting) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case betsetting.FieldValues:
 			values[i] = new([]byte)
-		case betsetting.FieldID:
+		case betsetting.FieldID, betsetting.FieldUserID:
 			values[i] = new(sql.NullInt64)
 		case betsetting.FieldCreatedTime:
 			values[i] = new(sql.NullTime)
@@ -77,6 +79,12 @@ func (bs *BetSetting) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
 			bs.ID = int64(value.Int64)
+		case betsetting.FieldUserID:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field user_id", values[i])
+			} else if value.Valid {
+				bs.UserID = value.Int64
+			}
 		case betsetting.FieldValues:
 			if value, ok := values[i].(*[]byte); !ok {
 				return fmt.Errorf("unexpected type %T for field values", values[i])
@@ -124,6 +132,9 @@ func (bs *BetSetting) String() string {
 	var builder strings.Builder
 	builder.WriteString("BetSetting(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", bs.ID))
+	builder.WriteString("user_id=")
+	builder.WriteString(fmt.Sprintf("%v", bs.UserID))
+	builder.WriteString(", ")
 	builder.WriteString("values=")
 	builder.WriteString(fmt.Sprintf("%v", bs.Values))
 	builder.WriteString(", ")

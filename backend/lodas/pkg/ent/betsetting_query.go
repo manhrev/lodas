@@ -296,12 +296,12 @@ func (bsq *BetSettingQuery) WithSheets(opts ...func(*SheetQuery)) *BetSettingQue
 // Example:
 //
 //	var v []struct {
-//		Values *schema.BetSettingMap `json:"values,omitempty"`
+//		UserID int64 `json:"user_id,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.BetSetting.Query().
-//		GroupBy(betsetting.FieldValues).
+//		GroupBy(betsetting.FieldUserID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -320,11 +320,11 @@ func (bsq *BetSettingQuery) GroupBy(field string, fields ...string) *BetSettingG
 // Example:
 //
 //	var v []struct {
-//		Values *schema.BetSettingMap `json:"values,omitempty"`
+//		UserID int64 `json:"user_id,omitempty"`
 //	}
 //
 //	client.BetSetting.Query().
-//		Select(betsetting.FieldValues).
+//		Select(betsetting.FieldUserID).
 //		Scan(ctx, &v)
 //
 func (bsq *BetSettingQuery) Select(fields ...string) *BetSettingSelect {

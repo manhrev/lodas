@@ -22,6 +22,12 @@ type BetSettingCreate struct {
 	hooks    []Hook
 }
 
+// SetUserID sets the "user_id" field.
+func (bsc *BetSettingCreate) SetUserID(i int64) *BetSettingCreate {
+	bsc.mutation.SetUserID(i)
+	return bsc
+}
+
 // SetValues sets the "values" field.
 func (bsc *BetSettingCreate) SetValues(ssm *schema.BetSettingMap) *BetSettingCreate {
 	bsc.mutation.SetValues(ssm)
@@ -89,6 +95,9 @@ func (bsc *BetSettingCreate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (bsc *BetSettingCreate) check() error {
+	if _, ok := bsc.mutation.UserID(); !ok {
+		return &ValidationError{Name: "user_id", err: errors.New(`ent: missing required field "BetSetting.user_id"`)}
+	}
 	if _, ok := bsc.mutation.Values(); !ok {
 		return &ValidationError{Name: "values", err: errors.New(`ent: missing required field "BetSetting.values"`)}
 	}
@@ -132,6 +141,10 @@ func (bsc *BetSettingCreate) createSpec() (*BetSetting, *sqlgraph.CreateSpec) {
 	if id, ok := bsc.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = id
+	}
+	if value, ok := bsc.mutation.UserID(); ok {
+		_spec.SetField(betsetting.FieldUserID, field.TypeInt64, value)
+		_node.UserID = value
 	}
 	if value, ok := bsc.mutation.Values(); ok {
 		_spec.SetField(betsetting.FieldValues, field.TypeJSON, value)

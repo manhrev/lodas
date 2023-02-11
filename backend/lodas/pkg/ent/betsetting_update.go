@@ -30,6 +30,19 @@ func (bsu *BetSettingUpdate) Where(ps ...predicate.BetSetting) *BetSettingUpdate
 	return bsu
 }
 
+// SetUserID sets the "user_id" field.
+func (bsu *BetSettingUpdate) SetUserID(i int64) *BetSettingUpdate {
+	bsu.mutation.ResetUserID()
+	bsu.mutation.SetUserID(i)
+	return bsu
+}
+
+// AddUserID adds i to the "user_id" field.
+func (bsu *BetSettingUpdate) AddUserID(i int64) *BetSettingUpdate {
+	bsu.mutation.AddUserID(i)
+	return bsu
+}
+
 // SetValues sets the "values" field.
 func (bsu *BetSettingUpdate) SetValues(ssm *schema.BetSettingMap) *BetSettingUpdate {
 	bsu.mutation.SetValues(ssm)
@@ -128,6 +141,12 @@ func (bsu *BetSettingUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := bsu.mutation.UserID(); ok {
+		_spec.SetField(betsetting.FieldUserID, field.TypeInt64, value)
+	}
+	if value, ok := bsu.mutation.AddedUserID(); ok {
+		_spec.AddField(betsetting.FieldUserID, field.TypeInt64, value)
+	}
 	if value, ok := bsu.mutation.Values(); ok {
 		_spec.SetField(betsetting.FieldValues, field.TypeJSON, value)
 	}
@@ -206,6 +225,19 @@ type BetSettingUpdateOne struct {
 	fields   []string
 	hooks    []Hook
 	mutation *BetSettingMutation
+}
+
+// SetUserID sets the "user_id" field.
+func (bsuo *BetSettingUpdateOne) SetUserID(i int64) *BetSettingUpdateOne {
+	bsuo.mutation.ResetUserID()
+	bsuo.mutation.SetUserID(i)
+	return bsuo
+}
+
+// AddUserID adds i to the "user_id" field.
+func (bsuo *BetSettingUpdateOne) AddUserID(i int64) *BetSettingUpdateOne {
+	bsuo.mutation.AddUserID(i)
+	return bsuo
 }
 
 // SetValues sets the "values" field.
@@ -329,6 +361,12 @@ func (bsuo *BetSettingUpdateOne) sqlSave(ctx context.Context) (_node *BetSetting
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := bsuo.mutation.UserID(); ok {
+		_spec.SetField(betsetting.FieldUserID, field.TypeInt64, value)
+	}
+	if value, ok := bsuo.mutation.AddedUserID(); ok {
+		_spec.AddField(betsetting.FieldUserID, field.TypeInt64, value)
 	}
 	if value, ok := bsuo.mutation.Values(); ok {
 		_spec.SetField(betsetting.FieldValues, field.TypeJSON, value)

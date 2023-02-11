@@ -7,6 +7,8 @@ const (
 	Label = "bet_setting"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldUserID holds the string denoting the user_id field in the database.
+	FieldUserID = "user_id"
 	// FieldValues holds the string denoting the values field in the database.
 	FieldValues = "values"
 	// FieldCreatedTime holds the string denoting the created_time field in the database.
@@ -27,6 +29,7 @@ const (
 // Columns holds all SQL columns for betsetting fields.
 var Columns = []string{
 	FieldID,
+	FieldUserID,
 	FieldValues,
 	FieldCreatedTime,
 }

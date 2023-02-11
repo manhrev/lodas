@@ -11,6 +11,7 @@ var (
 	// BetSettingsColumns holds the columns for the "bet_settings" table.
 	BetSettingsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt64, Increment: true},
+		{Name: "user_id", Type: field.TypeInt64},
 		{Name: "values", Type: field.TypeJSON},
 		{Name: "created_time", Type: field.TypeTime},
 	}
