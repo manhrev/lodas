@@ -4,6 +4,7 @@ import (
 	"context"
 
 	extractor "github.com/manhrev/lodas/backend/auth/pkg/extractor"
+	"google.golang.org/protobuf/types/known/timestamppb"
 
 	"github.com/manhrev/lodas/backend/lodas/internal/status"
 	lodas_pb "github.com/manhrev/lodas/backend/lodas/pkg/api"
@@ -31,5 +32,6 @@ func (s *lodasServer) GetBetSetting(
 			DE3: betSettingEnt.Values.DE3,
 			DA:  betSettingEnt.Values.DA,
 		},
+		CreatedTime: timestamppb.New(betSettingEnt.CreatedTime),
 	}, nil
 }

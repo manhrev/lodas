@@ -56,10 +56,14 @@ func (b *betSettingImpl) Get(
 	ctx context.Context,
 	userId int64,
 ) (*ent.BetSetting, error) {
-	betSettingEnt, err := b.entClient.BetSetting.Query().Where(betsetting.UserIDEQ(userId)).All(ctx)
+	betSettingEnt, err := b.entClient.BetSetting.Query().Where(betsetting.UserIDEQ(userId)).Order(ent.Desc(betsetting.FieldCreatedTime)).All(ctx)
 	if err != nil {
 		return nil, status.Internal(err.Error())
 	}
+	if len(betSettingEnt) == 0 {
+		return nil, status.Internal("no bet setting found")
+	}
+
 	return betSettingEnt[0], nil
 
 }
