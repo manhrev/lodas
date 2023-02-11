@@ -2,7 +2,6 @@ package lodas
 
 import (
 	"context"
-	"log"
 
 	extractor "github.com/manhrev/lodas/backend/auth/pkg/extractor"
 
@@ -18,7 +17,13 @@ func (s *lodasServer) CreateBetSetting(
 	if err != nil {
 		return nil, status.Internal(err.Error())
 	}
-
-	log.Println(userId)
+	_, err = s.repository.BetSetting.Create(
+		ctx,
+		userId,
+		request.GetBetSettingInfo(),
+	)
+	if err != nil {
+		return nil, err
+	}
 	return &lodas_pb.CreateBetSettingReply{}, nil
 }
