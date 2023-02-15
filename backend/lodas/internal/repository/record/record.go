@@ -33,6 +33,12 @@ type Record interface {
 		from *timestamppb.Timestamp,
 		to *timestamppb.Timestamp,
 	) ([]*ent.Record, int64, error)
+
+	Delete(
+		ctx context.Context,
+		userId int64,
+		ids []int64,
+	) error
 }
 
 type recordImpl struct {
@@ -117,4 +123,21 @@ func (s *recordImpl) List(
 
 	return records, int64(total), nil
 
+}
+
+func (s *recordImpl) Delete(
+	ctx context.Context,
+	userId int64,
+	ids []int64,
+) error {
+	numDeleted, err := s.entClient.Record.
+		Delete().
+		Where(record.HasSheetWith(sheet.UserIDEQ(userId)), record.IDIn(ids...)).Exec(ctx)
+	if err != nil {
+		return status.Internal(err.Error())
+	}
+	if numDeleted == 0 {
+		return status.Internal("Can't delete record")
+	}
+	return nil
 }

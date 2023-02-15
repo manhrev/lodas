@@ -8,20 +8,21 @@ import (
 	lodas_pb "github.com/manhrev/lodas/backend/lodas/pkg/api"
 )
 
-func (s *lodasServer) DeleteSheet(
+func (s *lodasServer) DeleteRecord(
 	ctx context.Context,
-	request *lodas_pb.DeleteSheetRequest,
-) (*lodas_pb.DeleteSheetReply, error) {
+	request *lodas_pb.DeleteRecordRequest,
+) (*lodas_pb.DeleteRecordReply, error) {
 	userId, err := extractor.New().GetUserID(ctx)
 	if err != nil {
 		return nil, status.Internal(err.Error())
 	}
-	err = s.repository.Sheet.Delete(
+	err = s.repository.Record.Delete(
 		ctx,
 		userId,
-		request.GetIds())
+		request.GetIds(),
+	)
 	if err != nil {
 		return nil, status.Internal(err.Error())
 	}
-	return &lodas_pb.DeleteSheetReply{}, nil
+	return &lodas_pb.DeleteRecordReply{}, nil
 }

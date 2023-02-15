@@ -15,6 +15,7 @@ service Lodas {
 
     rpc ListRecords(ListRecordsRequest) returns (ListRecordsReply);
     rpc CreateRecord(CreateRecordRequest) returns (CreateRecordReply);
+    rpc DeleteRecord(DeleteRecordRequest) returns (DeleteRecordReply);
 
     rpc CreateBetSetting(CreateBetSettingRequest) returns (CreateBetSettingReply);
     rpc GetBetSetting(GetBetSettingRequest) returns (GetBetSettingReply);
@@ -68,13 +69,19 @@ enum Province {
 }
 
 message DeleteSheetRequest {
-    repeated int64 sheet_ids = 1;
+    repeated int64 ids = 1;
 }
 
 message DeleteSheetReply {
 }
 
 message UpdateSheetRequest {
+    int64 sheet_id =1;
+    string name = 2;
+    Area area=3;
+    Province province =4; 
+    double ratio = 5;
+    google.protobuf.Timestamp result_time = 6;
 }
 
 message UpdateSheetReply {
@@ -138,6 +145,13 @@ message ListRecordsRequest {
     RecordSortBy sort_by = 4;
     google.protobuf.Timestamp from = 5;
     google.protobuf.Timestamp to = 6;
+}
+
+message DeleteRecordRequest {
+    repeated int64 ids = 1;
+}
+message DeleteRecordReply{
+
 }
 
 enum RecordSortBy {

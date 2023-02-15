@@ -33,6 +33,23 @@ type Sheet interface {
 		from *timestamppb.Timestamp,
 		to *timestamppb.Timestamp,
 	) ([]*ent.Sheet, int64, error)
+
+	Update(
+		ctx context.Context,
+		userId int64,
+		sheetId int64,
+		name string,
+		area lodas_pb.Area,
+		province lodas_pb.Province,
+		ratio float64,
+		result_time *timestamppb.Timestamp,
+	) error
+
+	Delete(
+		ctx context.Context,
+		userId int64,
+		ids []int64,
+	) error
 }
 
 type sheetImpl struct {
@@ -124,4 +141,50 @@ func (s *sheetImpl) List(
 	}
 
 	return sheets, int64(total), nil
+}
+func (s *sheetImpl) Update(
+	ctx context.Context,
+	userId int64,
+	sheetId int64,
+	name string,
+	area lodas_pb.Area,
+	province lodas_pb.Province,
+	ratio float64,
+	result_time *timestamppb.Timestamp,
+) error {
+	numUpdated, err := s.entClient.Sheet.Update().
+		SetName(name).
+		SetArea(int64(area)).
+		SetProvince(int64(province)).
+		SetRatio(float64(ratio)).
+		SetUpdatedTime(time.Now()).
+		SetResultTime(result_time.AsTime()).
+		Where(sheet.IDEQ(sheetId), sheet.UserIDEQ(userId)).
+		Save(ctx)
+
+	if err != nil {
+		return status.Internal(err.Error())
+	}
+	if numUpdated == 0 {
+		return status.Internal("Can't update sheet info")
+	}
+	return nil
+}
+
+func (s *sheetImpl) Delete(
+	ctx context.Context,
+	userId int64,
+	ids []int64,
+) error {
+	numDeleted, err := s.entClient.Sheet.
+		Delete().
+		Where(sheet.IDIn(ids...), sheet.UserIDEQ(userId)).
+		Exec(ctx)
+	if err != nil {
+		return status.Internal(err.Error())
+	}
+	if numDeleted == 0 {
+		return status.Internal("Can't delete sheet")
+	}
+	return nil
 }

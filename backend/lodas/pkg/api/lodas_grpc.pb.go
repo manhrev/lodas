@@ -28,6 +28,7 @@ type LodasClient interface {
 	ListSheets(ctx context.Context, in *ListSheetsRequest, opts ...grpc.CallOption) (*ListSheetsReply, error)
 	ListRecords(ctx context.Context, in *ListRecordsRequest, opts ...grpc.CallOption) (*ListRecordsReply, error)
 	CreateRecord(ctx context.Context, in *CreateRecordRequest, opts ...grpc.CallOption) (*CreateRecordReply, error)
+	DeleteRecord(ctx context.Context, in *DeleteRecordRequest, opts ...grpc.CallOption) (*DeleteRecordReply, error)
 	CreateBetSetting(ctx context.Context, in *CreateBetSettingRequest, opts ...grpc.CallOption) (*CreateBetSettingReply, error)
 	GetBetSetting(ctx context.Context, in *GetBetSettingRequest, opts ...grpc.CallOption) (*GetBetSettingReply, error)
 }
@@ -94,6 +95,15 @@ func (c *lodasClient) CreateRecord(ctx context.Context, in *CreateRecordRequest,
 	return out, nil
 }
 
+func (c *lodasClient) DeleteRecord(ctx context.Context, in *DeleteRecordRequest, opts ...grpc.CallOption) (*DeleteRecordReply, error) {
+	out := new(DeleteRecordReply)
+	err := c.cc.Invoke(ctx, "/lodas.Lodas/DeleteRecord", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *lodasClient) CreateBetSetting(ctx context.Context, in *CreateBetSettingRequest, opts ...grpc.CallOption) (*CreateBetSettingReply, error) {
 	out := new(CreateBetSettingReply)
 	err := c.cc.Invoke(ctx, "/lodas.Lodas/CreateBetSetting", in, out, opts...)
@@ -122,6 +132,7 @@ type LodasServer interface {
 	ListSheets(context.Context, *ListSheetsRequest) (*ListSheetsReply, error)
 	ListRecords(context.Context, *ListRecordsRequest) (*ListRecordsReply, error)
 	CreateRecord(context.Context, *CreateRecordRequest) (*CreateRecordReply, error)
+	DeleteRecord(context.Context, *DeleteRecordRequest) (*DeleteRecordReply, error)
 	CreateBetSetting(context.Context, *CreateBetSettingRequest) (*CreateBetSettingReply, error)
 	GetBetSetting(context.Context, *GetBetSettingRequest) (*GetBetSettingReply, error)
 	mustEmbedUnimplementedLodasServer()
@@ -148,6 +159,9 @@ func (UnimplementedLodasServer) ListRecords(context.Context, *ListRecordsRequest
 }
 func (UnimplementedLodasServer) CreateRecord(context.Context, *CreateRecordRequest) (*CreateRecordReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRecord not implemented")
+}
+func (UnimplementedLodasServer) DeleteRecord(context.Context, *DeleteRecordRequest) (*DeleteRecordReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteRecord not implemented")
 }
 func (UnimplementedLodasServer) CreateBetSetting(context.Context, *CreateBetSettingRequest) (*CreateBetSettingReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateBetSetting not implemented")
@@ -276,6 +290,24 @@ func _Lodas_CreateRecord_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Lodas_DeleteRecord_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRecordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LodasServer).DeleteRecord(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/lodas.Lodas/DeleteRecord",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LodasServer).DeleteRecord(ctx, req.(*DeleteRecordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Lodas_CreateBetSetting_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateBetSettingRequest)
 	if err := dec(in); err != nil {
@@ -342,6 +374,10 @@ var Lodas_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateRecord",
 			Handler:    _Lodas_CreateRecord_Handler,
+		},
+		{
+			MethodName: "DeleteRecord",
+			Handler:    _Lodas_DeleteRecord_Handler,
 		},
 		{
 			MethodName: "CreateBetSetting",
