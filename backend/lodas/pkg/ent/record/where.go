@@ -200,6 +200,16 @@ func CashInLTE(v int64) predicate.Record {
 	return predicate.Record(sql.FieldLTE(FieldCashIn, v))
 }
 
+// CashInIsNil applies the IsNil predicate on the "cash_in" field.
+func CashInIsNil() predicate.Record {
+	return predicate.Record(sql.FieldIsNull(FieldCashIn))
+}
+
+// CashInNotNil applies the NotNil predicate on the "cash_in" field.
+func CashInNotNil() predicate.Record {
+	return predicate.Record(sql.FieldNotNull(FieldCashIn))
+}
+
 // CashOutEQ applies the EQ predicate on the "cash_out" field.
 func CashOutEQ(v int64) predicate.Record {
 	return predicate.Record(sql.FieldEQ(FieldCashOut, v))
@@ -240,6 +250,16 @@ func CashOutLTE(v int64) predicate.Record {
 	return predicate.Record(sql.FieldLTE(FieldCashOut, v))
 }
 
+// CashOutIsNil applies the IsNil predicate on the "cash_out" field.
+func CashOutIsNil() predicate.Record {
+	return predicate.Record(sql.FieldIsNull(FieldCashOut))
+}
+
+// CashOutNotNil applies the NotNil predicate on the "cash_out" field.
+func CashOutNotNil() predicate.Record {
+	return predicate.Record(sql.FieldNotNull(FieldCashOut))
+}
+
 // CreatedTimeEQ applies the EQ predicate on the "created_time" field.
 func CreatedTimeEQ(v time.Time) predicate.Record {
 	return predicate.Record(sql.FieldEQ(FieldCreatedTime, v))
@@ -278,6 +298,16 @@ func CreatedTimeLT(v time.Time) predicate.Record {
 // CreatedTimeLTE applies the LTE predicate on the "created_time" field.
 func CreatedTimeLTE(v time.Time) predicate.Record {
 	return predicate.Record(sql.FieldLTE(FieldCreatedTime, v))
+}
+
+// WinInfoIsNil applies the IsNil predicate on the "win_info" field.
+func WinInfoIsNil() predicate.Record {
+	return predicate.Record(sql.FieldIsNull(FieldWinInfo))
+}
+
+// WinInfoNotNil applies the NotNil predicate on the "win_info" field.
+func WinInfoNotNil() predicate.Record {
+	return predicate.Record(sql.FieldNotNull(FieldWinInfo))
 }
 
 // HasSheet applies the HasEdge predicate on the "sheet" edge.

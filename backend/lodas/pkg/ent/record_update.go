@@ -96,9 +96,23 @@ func (ru *RecordUpdate) SetCashIn(i int64) *RecordUpdate {
 	return ru
 }
 
+// SetNillableCashIn sets the "cash_in" field if the given value is not nil.
+func (ru *RecordUpdate) SetNillableCashIn(i *int64) *RecordUpdate {
+	if i != nil {
+		ru.SetCashIn(*i)
+	}
+	return ru
+}
+
 // AddCashIn adds i to the "cash_in" field.
 func (ru *RecordUpdate) AddCashIn(i int64) *RecordUpdate {
 	ru.mutation.AddCashIn(i)
+	return ru
+}
+
+// ClearCashIn clears the value of the "cash_in" field.
+func (ru *RecordUpdate) ClearCashIn() *RecordUpdate {
+	ru.mutation.ClearCashIn()
 	return ru
 }
 
@@ -109,9 +123,23 @@ func (ru *RecordUpdate) SetCashOut(i int64) *RecordUpdate {
 	return ru
 }
 
+// SetNillableCashOut sets the "cash_out" field if the given value is not nil.
+func (ru *RecordUpdate) SetNillableCashOut(i *int64) *RecordUpdate {
+	if i != nil {
+		ru.SetCashOut(*i)
+	}
+	return ru
+}
+
 // AddCashOut adds i to the "cash_out" field.
 func (ru *RecordUpdate) AddCashOut(i int64) *RecordUpdate {
 	ru.mutation.AddCashOut(i)
+	return ru
+}
+
+// ClearCashOut clears the value of the "cash_out" field.
+func (ru *RecordUpdate) ClearCashOut() *RecordUpdate {
+	ru.mutation.ClearCashOut()
 	return ru
 }
 
@@ -124,6 +152,12 @@ func (ru *RecordUpdate) SetCreatedTime(t time.Time) *RecordUpdate {
 // SetWinInfo sets the "win_info" field.
 func (ru *RecordUpdate) SetWinInfo(sm *schema.PrizeMap) *RecordUpdate {
 	ru.mutation.SetWinInfo(sm)
+	return ru
+}
+
+// ClearWinInfo clears the value of the "win_info" field.
+func (ru *RecordUpdate) ClearWinInfo() *RecordUpdate {
+	ru.mutation.ClearWinInfo()
 	return ru
 }
 
@@ -236,17 +270,26 @@ func (ru *RecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := ru.mutation.AddedCashIn(); ok {
 		_spec.AddField(record.FieldCashIn, field.TypeInt64, value)
 	}
+	if ru.mutation.CashInCleared() {
+		_spec.ClearField(record.FieldCashIn, field.TypeInt64)
+	}
 	if value, ok := ru.mutation.CashOut(); ok {
 		_spec.SetField(record.FieldCashOut, field.TypeInt64, value)
 	}
 	if value, ok := ru.mutation.AddedCashOut(); ok {
 		_spec.AddField(record.FieldCashOut, field.TypeInt64, value)
 	}
+	if ru.mutation.CashOutCleared() {
+		_spec.ClearField(record.FieldCashOut, field.TypeInt64)
+	}
 	if value, ok := ru.mutation.CreatedTime(); ok {
 		_spec.SetField(record.FieldCreatedTime, field.TypeTime, value)
 	}
 	if value, ok := ru.mutation.WinInfo(); ok {
 		_spec.SetField(record.FieldWinInfo, field.TypeJSON, value)
+	}
+	if ru.mutation.WinInfoCleared() {
+		_spec.ClearField(record.FieldWinInfo, field.TypeJSON)
 	}
 	if ru.mutation.SheetCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -368,9 +411,23 @@ func (ruo *RecordUpdateOne) SetCashIn(i int64) *RecordUpdateOne {
 	return ruo
 }
 
+// SetNillableCashIn sets the "cash_in" field if the given value is not nil.
+func (ruo *RecordUpdateOne) SetNillableCashIn(i *int64) *RecordUpdateOne {
+	if i != nil {
+		ruo.SetCashIn(*i)
+	}
+	return ruo
+}
+
 // AddCashIn adds i to the "cash_in" field.
 func (ruo *RecordUpdateOne) AddCashIn(i int64) *RecordUpdateOne {
 	ruo.mutation.AddCashIn(i)
+	return ruo
+}
+
+// ClearCashIn clears the value of the "cash_in" field.
+func (ruo *RecordUpdateOne) ClearCashIn() *RecordUpdateOne {
+	ruo.mutation.ClearCashIn()
 	return ruo
 }
 
@@ -381,9 +438,23 @@ func (ruo *RecordUpdateOne) SetCashOut(i int64) *RecordUpdateOne {
 	return ruo
 }
 
+// SetNillableCashOut sets the "cash_out" field if the given value is not nil.
+func (ruo *RecordUpdateOne) SetNillableCashOut(i *int64) *RecordUpdateOne {
+	if i != nil {
+		ruo.SetCashOut(*i)
+	}
+	return ruo
+}
+
 // AddCashOut adds i to the "cash_out" field.
 func (ruo *RecordUpdateOne) AddCashOut(i int64) *RecordUpdateOne {
 	ruo.mutation.AddCashOut(i)
+	return ruo
+}
+
+// ClearCashOut clears the value of the "cash_out" field.
+func (ruo *RecordUpdateOne) ClearCashOut() *RecordUpdateOne {
+	ruo.mutation.ClearCashOut()
 	return ruo
 }
 
@@ -396,6 +467,12 @@ func (ruo *RecordUpdateOne) SetCreatedTime(t time.Time) *RecordUpdateOne {
 // SetWinInfo sets the "win_info" field.
 func (ruo *RecordUpdateOne) SetWinInfo(sm *schema.PrizeMap) *RecordUpdateOne {
 	ruo.mutation.SetWinInfo(sm)
+	return ruo
+}
+
+// ClearWinInfo clears the value of the "win_info" field.
+func (ruo *RecordUpdateOne) ClearWinInfo() *RecordUpdateOne {
+	ruo.mutation.ClearWinInfo()
 	return ruo
 }
 
@@ -532,17 +609,26 @@ func (ruo *RecordUpdateOne) sqlSave(ctx context.Context) (_node *Record, err err
 	if value, ok := ruo.mutation.AddedCashIn(); ok {
 		_spec.AddField(record.FieldCashIn, field.TypeInt64, value)
 	}
+	if ruo.mutation.CashInCleared() {
+		_spec.ClearField(record.FieldCashIn, field.TypeInt64)
+	}
 	if value, ok := ruo.mutation.CashOut(); ok {
 		_spec.SetField(record.FieldCashOut, field.TypeInt64, value)
 	}
 	if value, ok := ruo.mutation.AddedCashOut(); ok {
 		_spec.AddField(record.FieldCashOut, field.TypeInt64, value)
 	}
+	if ruo.mutation.CashOutCleared() {
+		_spec.ClearField(record.FieldCashOut, field.TypeInt64)
+	}
 	if value, ok := ruo.mutation.CreatedTime(); ok {
 		_spec.SetField(record.FieldCreatedTime, field.TypeTime, value)
 	}
 	if value, ok := ruo.mutation.WinInfo(); ok {
 		_spec.SetField(record.FieldWinInfo, field.TypeJSON, value)
+	}
+	if ruo.mutation.WinInfoCleared() {
+		_spec.ClearField(record.FieldWinInfo, field.TypeJSON)
 	}
 	if ruo.mutation.SheetCleared() {
 		edge := &sqlgraph.EdgeSpec{

@@ -1000,10 +1000,24 @@ func (m *RecordMutation) AddedCashIn() (r int64, exists bool) {
 	return *v, true
 }
 
+// ClearCashIn clears the value of the "cash_in" field.
+func (m *RecordMutation) ClearCashIn() {
+	m.cash_in = nil
+	m.addcash_in = nil
+	m.clearedFields[record.FieldCashIn] = struct{}{}
+}
+
+// CashInCleared returns if the "cash_in" field was cleared in this mutation.
+func (m *RecordMutation) CashInCleared() bool {
+	_, ok := m.clearedFields[record.FieldCashIn]
+	return ok
+}
+
 // ResetCashIn resets all changes to the "cash_in" field.
 func (m *RecordMutation) ResetCashIn() {
 	m.cash_in = nil
 	m.addcash_in = nil
+	delete(m.clearedFields, record.FieldCashIn)
 }
 
 // SetCashOut sets the "cash_out" field.
@@ -1056,10 +1070,24 @@ func (m *RecordMutation) AddedCashOut() (r int64, exists bool) {
 	return *v, true
 }
 
+// ClearCashOut clears the value of the "cash_out" field.
+func (m *RecordMutation) ClearCashOut() {
+	m.cash_out = nil
+	m.addcash_out = nil
+	m.clearedFields[record.FieldCashOut] = struct{}{}
+}
+
+// CashOutCleared returns if the "cash_out" field was cleared in this mutation.
+func (m *RecordMutation) CashOutCleared() bool {
+	_, ok := m.clearedFields[record.FieldCashOut]
+	return ok
+}
+
 // ResetCashOut resets all changes to the "cash_out" field.
 func (m *RecordMutation) ResetCashOut() {
 	m.cash_out = nil
 	m.addcash_out = nil
+	delete(m.clearedFields, record.FieldCashOut)
 }
 
 // SetCreatedTime sets the "created_time" field.
@@ -1129,9 +1157,22 @@ func (m *RecordMutation) OldWinInfo(ctx context.Context) (v *schema.PrizeMap, er
 	return oldValue.WinInfo, nil
 }
 
+// ClearWinInfo clears the value of the "win_info" field.
+func (m *RecordMutation) ClearWinInfo() {
+	m.win_info = nil
+	m.clearedFields[record.FieldWinInfo] = struct{}{}
+}
+
+// WinInfoCleared returns if the "win_info" field was cleared in this mutation.
+func (m *RecordMutation) WinInfoCleared() bool {
+	_, ok := m.clearedFields[record.FieldWinInfo]
+	return ok
+}
+
 // ResetWinInfo resets all changes to the "win_info" field.
 func (m *RecordMutation) ResetWinInfo() {
 	m.win_info = nil
+	delete(m.clearedFields, record.FieldWinInfo)
 }
 
 // SetSheetID sets the "sheet" edge to the Sheet entity by id.
@@ -1426,7 +1467,17 @@ func (m *RecordMutation) AddField(name string, value ent.Value) error {
 // ClearedFields returns all nullable fields that were cleared during this
 // mutation.
 func (m *RecordMutation) ClearedFields() []string {
-	return nil
+	var fields []string
+	if m.FieldCleared(record.FieldCashIn) {
+		fields = append(fields, record.FieldCashIn)
+	}
+	if m.FieldCleared(record.FieldCashOut) {
+		fields = append(fields, record.FieldCashOut)
+	}
+	if m.FieldCleared(record.FieldWinInfo) {
+		fields = append(fields, record.FieldWinInfo)
+	}
+	return fields
 }
 
 // FieldCleared returns a boolean indicating if a field with the given name was
@@ -1439,6 +1490,17 @@ func (m *RecordMutation) FieldCleared(name string) bool {
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
 func (m *RecordMutation) ClearField(name string) error {
+	switch name {
+	case record.FieldCashIn:
+		m.ClearCashIn()
+		return nil
+	case record.FieldCashOut:
+		m.ClearCashOut()
+		return nil
+	case record.FieldWinInfo:
+		m.ClearWinInfo()
+		return nil
+	}
 	return fmt.Errorf("unknown Record nullable field %s", name)
 }
 

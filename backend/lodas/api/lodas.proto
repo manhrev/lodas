@@ -124,13 +124,14 @@ message CreateRecordRequest {
     repeated string numbers = 1;
     int64 cash = 2;
     repeated Prize prizes = 3;
-    BetType name = 4;
+    BetType bet_type = 4;
 }
 
 message CreateRecordReply {
 }
 
 message ListRecordsRequest {
+    int64 sheet_id = 7;
     uint32 limit = 1;
     uint64 offset = 2;
     bool ascending = 3;
@@ -146,16 +147,18 @@ enum RecordSortBy {
 
 message ListRecordsReply {
     repeated Record records = 1;
+    int64 total = 2;
 }
 
 message Record {
+    int64 id = 10;
     int64 sheet_id = 8;
     repeated string numbers = 1;
     int64 cash = 2;
     repeated Prize prizes = 3;
     BetType bet_type = 4;
     int64 cash_in = 5;
-    map<string, string> win_info = 9; // prize -> number
+    map<int64, string> win_info = 9; // prize -> number
     int64 cash_out = 6;
     google.protobuf.Timestamp create_time = 7;
 }

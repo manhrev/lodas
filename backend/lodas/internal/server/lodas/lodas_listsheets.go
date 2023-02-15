@@ -19,7 +19,7 @@ func (s *lodasServer) ListSheets(
 		return nil, status.Internal(err.Error())
 	}
 
-	sheetlist, total, err := s.repository.Sheet.List(
+	sheetList, total, err := s.repository.Sheet.List(
 		ctx,
 		userId,
 		request.GetLimit(),
@@ -34,7 +34,7 @@ func (s *lodasServer) ListSheets(
 	}
 
 	return &lodas_pb.ListSheetsReply{
-		Sheets: transformEntSheetListToSheetList(sheetlist),
+		Sheets: transformEntSheetListToSheetList(sheetList),
 		Total:  total,
 	}, nil
 }

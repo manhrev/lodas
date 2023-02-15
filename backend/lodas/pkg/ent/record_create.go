@@ -60,9 +60,25 @@ func (rc *RecordCreate) SetCashIn(i int64) *RecordCreate {
 	return rc
 }
 
+// SetNillableCashIn sets the "cash_in" field if the given value is not nil.
+func (rc *RecordCreate) SetNillableCashIn(i *int64) *RecordCreate {
+	if i != nil {
+		rc.SetCashIn(*i)
+	}
+	return rc
+}
+
 // SetCashOut sets the "cash_out" field.
 func (rc *RecordCreate) SetCashOut(i int64) *RecordCreate {
 	rc.mutation.SetCashOut(i)
+	return rc
+}
+
+// SetNillableCashOut sets the "cash_out" field if the given value is not nil.
+func (rc *RecordCreate) SetNillableCashOut(i *int64) *RecordCreate {
+	if i != nil {
+		rc.SetCashOut(*i)
+	}
 	return rc
 }
 
@@ -158,17 +174,8 @@ func (rc *RecordCreate) check() error {
 	if _, ok := rc.mutation.Prize(); !ok {
 		return &ValidationError{Name: "prize", err: errors.New(`ent: missing required field "Record.prize"`)}
 	}
-	if _, ok := rc.mutation.CashIn(); !ok {
-		return &ValidationError{Name: "cash_in", err: errors.New(`ent: missing required field "Record.cash_in"`)}
-	}
-	if _, ok := rc.mutation.CashOut(); !ok {
-		return &ValidationError{Name: "cash_out", err: errors.New(`ent: missing required field "Record.cash_out"`)}
-	}
 	if _, ok := rc.mutation.CreatedTime(); !ok {
 		return &ValidationError{Name: "created_time", err: errors.New(`ent: missing required field "Record.created_time"`)}
-	}
-	if _, ok := rc.mutation.WinInfo(); !ok {
-		return &ValidationError{Name: "win_info", err: errors.New(`ent: missing required field "Record.win_info"`)}
 	}
 	return nil
 }

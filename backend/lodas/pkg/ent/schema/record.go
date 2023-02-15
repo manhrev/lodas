@@ -18,10 +18,10 @@ func (Record) Fields() []ent.Field {
 		field.Int64("cash_amount"),
 		field.Int64("bet_type").Default(int64(lodas_pb.BetType_BET_TYPE_UNSPECIFIED)),
 		field.Ints("prize"),
-		field.Int64("cash_in"),
-		field.Int64("cash_out"),
+		field.Int64("cash_in").Optional(),
+		field.Int64("cash_out").Optional(),
 		field.Time("created_time"),
-		field.JSON("win_info", &PrizeMap{}),
+		field.JSON("win_info", &PrizeMap{}).Optional(),
 	}
 }
 

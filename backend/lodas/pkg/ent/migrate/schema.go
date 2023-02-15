@@ -28,10 +28,10 @@ var (
 		{Name: "cash_amount", Type: field.TypeInt64},
 		{Name: "bet_type", Type: field.TypeInt64, Default: 0},
 		{Name: "prize", Type: field.TypeJSON},
-		{Name: "cash_in", Type: field.TypeInt64},
-		{Name: "cash_out", Type: field.TypeInt64},
+		{Name: "cash_in", Type: field.TypeInt64, Nullable: true},
+		{Name: "cash_out", Type: field.TypeInt64, Nullable: true},
 		{Name: "created_time", Type: field.TypeTime},
-		{Name: "win_info", Type: field.TypeJSON},
+		{Name: "win_info", Type: field.TypeJSON, Nullable: true},
 		{Name: "sheet_records", Type: field.TypeInt64, Nullable: true},
 	}
 	// RecordsTable holds the schema information for the "records" table.
