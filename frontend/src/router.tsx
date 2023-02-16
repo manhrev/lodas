@@ -7,6 +7,8 @@ import BaseLayout from "src/layouts/BaseLayout";
 
 import SuspenseLoader from "src/components/SuspenseLoader";
 import Home from "./pages/Home";
+import Sheets from "./pages/Sheets";
+import SheetDetail from "./pages/SheetDetail";
 
 const Loader = (Component) => (props) =>
   (
@@ -83,12 +85,20 @@ const routes: RouteObject[] = [
     element: <SidebarLayout />,
     children: [
       {
+        path: "/",
+        element: <Navigate to="/trang-chu" replace />,
+      },
+      {
         path: "trang-chu",
         element: <Home />,
       },
       {
         path: "sheet",
-        element: <div>sheet</div>,
+        element: <Sheets />,
+      },
+      {
+        path: "sheet/:id",
+        element: <SheetDetail />,
       },
       {
         path: "ket-qua",
