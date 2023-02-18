@@ -3,6 +3,8 @@
 package ent
 
 import (
+	"time"
+
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent/record"
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent/result"
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent/schema"
@@ -25,6 +27,10 @@ func init() {
 	resultDescProvince := resultFields[1].Descriptor()
 	// result.DefaultProvince holds the default value on creation for the province field.
 	result.DefaultProvince = resultDescProvince.Default.(int64)
+	// resultDescCreatedTime is the schema descriptor for created_time field.
+	resultDescCreatedTime := resultFields[2].Descriptor()
+	// result.DefaultCreatedTime holds the default value on creation for the created_time field.
+	result.DefaultCreatedTime = resultDescCreatedTime.Default.(time.Time)
 	sheetFields := schema.Sheet{}.Fields()
 	_ = sheetFields
 	// sheetDescStatus is the schema descriptor for status field.

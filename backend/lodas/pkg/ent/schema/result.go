@@ -2,6 +2,7 @@ package schema
 
 import (
 	"encoding/json"
+	"time"
 
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
@@ -16,7 +17,7 @@ func (Result) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int64("id").Unique(),
 		field.Int64("province").Default(int64(lodas_pb.Province_UNSPECIFIED)),
-		field.Time("created_time"),
+		field.Time("created_time").Default(time.Now()),
 		//map prize (enum) to string
 		field.JSON("prize_map", &PrizeMap{}),
 	}

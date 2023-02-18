@@ -2,6 +2,10 @@
 
 package result
 
+import (
+	"time"
+)
+
 const (
 	// Label holds the string label denoting the result type in the database.
 	Label = "result"
@@ -38,4 +42,6 @@ func ValidColumn(column string) bool {
 var (
 	// DefaultProvince holds the default value on creation for the "province" field.
 	DefaultProvince int64
+	// DefaultCreatedTime holds the default value on creation for the "created_time" field.
+	DefaultCreatedTime time.Time
 )
