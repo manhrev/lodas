@@ -50,6 +50,12 @@ type Sheet interface {
 		userId int64,
 		ids []int64,
 	) error
+
+	Submit(
+		ctx context.Context,
+		userId int64,
+		id int64,
+	) error
 }
 
 type sheetImpl struct {
@@ -185,6 +191,24 @@ func (s *sheetImpl) Delete(
 	}
 	if numDeleted == 0 {
 		return status.Internal("Can't delete sheet")
+	}
+	return nil
+}
+
+func (s *sheetImpl) Submit(
+	ctx context.Context,
+	userId int64,
+	id int64,
+) error {
+	numSubmited, err := s.entClient.Sheet.Update().
+		SetStatus(int64(lodas_pb.SheetStatus_SHEET_STATUS_SUBMITTED)).
+		Where(sheet.UserIDEQ(userId), sheet.IDEQ(id)).
+		Save(ctx)
+	if err != nil {
+		return status.Internal(err.Error())
+	}
+	if numSubmited == 0 {
+		return status.Internal("Can't update sheet status")
 	}
 	return nil
 }

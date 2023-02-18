@@ -11,7 +11,7 @@ service Lodas {
     rpc DeleteSheet(DeleteSheetRequest) returns (DeleteSheetReply);
     rpc UpdateSheet(UpdateSheetRequest) returns (UpdateSheetReply);
     rpc ListSheets(ListSheetsRequest) returns (ListSheetsReply);
-    
+    rpc SubmitSheet(SubmitSheetRequest) returns (SubmitSheetReply);
 
     rpc ListRecords(ListRecordsRequest) returns (ListRecordsReply);
     rpc CreateRecord(CreateRecordRequest) returns (CreateRecordReply);
@@ -85,6 +85,13 @@ message UpdateSheetRequest {
 }
 
 message UpdateSheetReply {
+}
+
+message SubmitSheetRequest{
+    int64 id =1;
+}
+message SubmitSheetReply{
+
 }
 
 message ListSheetsRequest {
