@@ -26,6 +26,7 @@ type LodasClient interface {
 	DeleteSheet(ctx context.Context, in *DeleteSheetRequest, opts ...grpc.CallOption) (*DeleteSheetReply, error)
 	UpdateSheet(ctx context.Context, in *UpdateSheetRequest, opts ...grpc.CallOption) (*UpdateSheetReply, error)
 	ListSheets(ctx context.Context, in *ListSheetsRequest, opts ...grpc.CallOption) (*ListSheetsReply, error)
+	SubmitSheet(ctx context.Context, in *SubmitSheetRequest, opts ...grpc.CallOption) (*SubmitSheetReply, error)
 	ListRecords(ctx context.Context, in *ListRecordsRequest, opts ...grpc.CallOption) (*ListRecordsReply, error)
 	CreateRecord(ctx context.Context, in *CreateRecordRequest, opts ...grpc.CallOption) (*CreateRecordReply, error)
 	DeleteRecord(ctx context.Context, in *DeleteRecordRequest, opts ...grpc.CallOption) (*DeleteRecordReply, error)
@@ -71,6 +72,15 @@ func (c *lodasClient) UpdateSheet(ctx context.Context, in *UpdateSheetRequest, o
 func (c *lodasClient) ListSheets(ctx context.Context, in *ListSheetsRequest, opts ...grpc.CallOption) (*ListSheetsReply, error) {
 	out := new(ListSheetsReply)
 	err := c.cc.Invoke(ctx, "/lodas.Lodas/ListSheets", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *lodasClient) SubmitSheet(ctx context.Context, in *SubmitSheetRequest, opts ...grpc.CallOption) (*SubmitSheetReply, error) {
+	out := new(SubmitSheetReply)
+	err := c.cc.Invoke(ctx, "/lodas.Lodas/SubmitSheet", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -130,6 +140,7 @@ type LodasServer interface {
 	DeleteSheet(context.Context, *DeleteSheetRequest) (*DeleteSheetReply, error)
 	UpdateSheet(context.Context, *UpdateSheetRequest) (*UpdateSheetReply, error)
 	ListSheets(context.Context, *ListSheetsRequest) (*ListSheetsReply, error)
+	SubmitSheet(context.Context, *SubmitSheetRequest) (*SubmitSheetReply, error)
 	ListRecords(context.Context, *ListRecordsRequest) (*ListRecordsReply, error)
 	CreateRecord(context.Context, *CreateRecordRequest) (*CreateRecordReply, error)
 	DeleteRecord(context.Context, *DeleteRecordRequest) (*DeleteRecordReply, error)
@@ -153,6 +164,9 @@ func (UnimplementedLodasServer) UpdateSheet(context.Context, *UpdateSheetRequest
 }
 func (UnimplementedLodasServer) ListSheets(context.Context, *ListSheetsRequest) (*ListSheetsReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListSheets not implemented")
+}
+func (UnimplementedLodasServer) SubmitSheet(context.Context, *SubmitSheetRequest) (*SubmitSheetReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitSheet not implemented")
 }
 func (UnimplementedLodasServer) ListRecords(context.Context, *ListRecordsRequest) (*ListRecordsReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListRecords not implemented")
@@ -250,6 +264,24 @@ func _Lodas_ListSheets_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LodasServer).ListSheets(ctx, req.(*ListSheetsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Lodas_SubmitSheet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SubmitSheetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LodasServer).SubmitSheet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/lodas.Lodas/SubmitSheet",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LodasServer).SubmitSheet(ctx, req.(*SubmitSheetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -366,6 +398,10 @@ var Lodas_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListSheets",
 			Handler:    _Lodas_ListSheets_Handler,
+		},
+		{
+			MethodName: "SubmitSheet",
+			Handler:    _Lodas_SubmitSheet_Handler,
 		},
 		{
 			MethodName: "ListRecords",
