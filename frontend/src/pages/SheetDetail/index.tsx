@@ -12,7 +12,7 @@ import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router";
 import { useState } from "react";
 import { Area, Prize } from "src/lib/lodas/lodas_pb";
-import { checkGiai, checkSoDanh } from "src/utils";
+import { checkGiai, checkSoDanh } from "src/utils/helper";
 
 interface KieuDanhType {
   inputValue?: string;
