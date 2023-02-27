@@ -42,7 +42,6 @@ class gRPCClientAbstract {
       console.log(">>> option:", option);
 
       const response = await this.client[func](request, option);
-
       console.log(
         `%c>>>>> gRPCClientResponse -> [${this.logFuncName(func)}] -> SUCCESS:`,
         "background-color: #23d947; color: #000; font-size: 14px",

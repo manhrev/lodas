@@ -22,6 +22,8 @@ import ExpandMoreTwoToneIcon from "@mui/icons-material/ExpandMoreTwoTone";
 import AccountBoxTwoToneIcon from "@mui/icons-material/AccountBoxTwoTone";
 import LockOpenTwoToneIcon from "@mui/icons-material/LockOpenTwoTone";
 import AccountTreeTwoToneIcon from "@mui/icons-material/AccountTreeTwoTone";
+import { useAppDispatch } from "src/redux/store";
+import { logoutThunk } from "src/redux/feature/user/thunk";
 
 const UserBoxButton = styled(Button)(
   ({ theme }) => `
@@ -59,6 +61,7 @@ const UserBoxDescription = styled(Typography)(
 );
 
 function HeaderUserbox() {
+  const dispatch = useAppDispatch();
   const user = {
     name: "Catherine Pike",
     avatar: "/static/images/avatars/1.jpg",
@@ -67,6 +70,10 @@ function HeaderUserbox() {
 
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
+
+  const handleLogout = async () => {
+    dispatch(logoutThunk());
+  };
 
   const handleOpen = (): void => {
     setOpen(true);
@@ -135,7 +142,7 @@ function HeaderUserbox() {
         </List>
         <Divider /> */}
         <Box sx={{ m: 1 }}>
-          <Button color="primary" fullWidth>
+          <Button color="primary" fullWidth onClick={handleLogout}>
             <LockOpenTwoToneIcon sx={{ mr: 1 }} />
             Đăng xuất
           </Button>

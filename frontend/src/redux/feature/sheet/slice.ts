@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Record, SheetInfo } from "src/lib/lodas/lodas_pb";
 import { CommonState } from "src/redux/common/types";
 import { StatusEnum } from "src/redux/constant";
+import { RootState } from "src/redux/reducers";
 import { listRecordsThunk, listSheetsThunk } from "./thunk";
 
 type SheetState = {
@@ -46,3 +47,9 @@ const slice = createSlice({
     });
   },
 });
+
+export const selectSheetSlice = (state: RootState) => state.sheet;
+export const isSheetSliceLoading = (state: RootState) =>
+  state.sheet.status === StatusEnum.LOADING;
+
+export default slice.reducer;

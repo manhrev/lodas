@@ -1,6 +1,10 @@
 import { Timestamp } from "google-protobuf/google/protobuf/timestamp_pb";
 import { LodasClient } from "src/lib/lodas/LodasServiceClientPb";
 import {
+  CreateSheetReply,
+  CreateSheetRequest,
+  DeleteSheetReply,
+  DeleteSheetRequest,
   ListRecordsReply,
   ListRecordsRequest,
   ListSheetsReply,
@@ -30,6 +34,34 @@ class rpcLodasClient extends gRPCClientAbstract {
 
     return await this.gRPCClientRequest<ListSheetsReply.AsObject>(
       "listSheets",
+      req
+    );
+  }
+
+  async createSheet(param: CreateSheetRequest.AsObject) {
+    const req = new CreateSheetRequest();
+    req.setName(param.name);
+    req.setArea(param.area);
+    req.setProvince(param.province);
+    req.setRatio(param.ratio);
+    req.setResultTime(
+      param.resultTime
+        ? new Timestamp().setSeconds(param.resultTime.seconds)
+        : undefined
+    );
+
+    return await this.gRPCClientRequest<CreateSheetReply.AsObject>(
+      "createSheet",
+      req
+    );
+  }
+
+  async deleteSheet(param: DeleteSheetRequest.AsObject) {
+    const req = new DeleteSheetRequest();
+    req.setIdsList(param.idsList);
+
+    return await this.gRPCClientRequest<DeleteSheetReply.AsObject>(
+      "deleteSheet",
       req
     );
   }

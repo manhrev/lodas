@@ -30,6 +30,9 @@ const slice = createSlice({
     builder.addCase(getMeThunk.pending, (state) => {
       state.status = StatusEnum.LOADING;
     });
+    builder.addCase(loginThunk.pending, (state) => {
+      state.status = StatusEnum.LOADING;
+    });
     builder.addCase(getMeThunk.fulfilled, (state, { payload }) => {
       const { response, error } = payload;
       if (error) {
@@ -49,11 +52,13 @@ const slice = createSlice({
       const { response, error } = payload;
       if (error) {
         state.isSignedIn = false;
+        state.status = StatusEnum.SUCCEEDED;
         return;
       }
       const token = response?.accessToken || "";
       localStorage.setItem(KEY_ACCESS_TOKEN, token);
       state.isSignedIn = true;
+      state.status = StatusEnum.SUCCEEDED;
     });
     builder.addCase(logoutThunk.fulfilled, (state, { payload }) => {
       state.isSignedIn = false;
