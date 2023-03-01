@@ -1,6 +1,8 @@
 import { Timestamp } from "google-protobuf/google/protobuf/timestamp_pb";
 import { LodasClient } from "src/lib/lodas/LodasServiceClientPb";
 import {
+  CreateRecordReply,
+  CreateRecordRequest,
   CreateSheetReply,
   CreateSheetRequest,
   DeleteSheetReply,
@@ -82,6 +84,21 @@ class rpcLodasClient extends gRPCClientAbstract {
 
     return await this.gRPCClientRequest<ListRecordsReply.AsObject>(
       "listRecords",
+      req
+    );
+  }
+
+  async createRecord(param: CreateRecordRequest.AsObject) {
+    const req = new CreateRecordRequest();
+    req.setSheetId(param.sheetId);
+    req.setBetType(param.betType);
+    req.setNumbersList(param.numbersList);
+    req.setCash(param.cash);
+    req.setNumbersList(param.numbersList);
+    req.setPrizesList(param.prizesList);
+
+    return await this.gRPCClientRequest<CreateRecordReply.AsObject>(
+      "createRecord",
       req
     );
   }

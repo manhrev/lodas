@@ -22,8 +22,10 @@ import ExpandMoreTwoToneIcon from "@mui/icons-material/ExpandMoreTwoTone";
 import AccountBoxTwoToneIcon from "@mui/icons-material/AccountBoxTwoTone";
 import LockOpenTwoToneIcon from "@mui/icons-material/LockOpenTwoTone";
 import AccountTreeTwoToneIcon from "@mui/icons-material/AccountTreeTwoTone";
-import { useAppDispatch } from "src/redux/store";
+import { useAppDispatch, useAppSelector } from "src/redux/store";
 import { logoutThunk } from "src/redux/feature/user/thunk";
+import { selectUserSlice } from "src/redux/feature/user/slice";
+import { toast } from "react-toastify";
 
 const UserBoxButton = styled(Button)(
   ({ theme }) => `
@@ -62,10 +64,11 @@ const UserBoxDescription = styled(Typography)(
 
 function HeaderUserbox() {
   const dispatch = useAppDispatch();
+  const { displayName } = useAppSelector(selectUserSlice);
   const user = {
-    name: "Catherine Pike",
+    name: displayName,
     avatar: "/static/images/avatars/1.jpg",
-    jobtitle: "Project Manager",
+    jobtitle: "Nhân viên",
   };
 
   const ref = useRef<any>(null);
@@ -73,6 +76,7 @@ function HeaderUserbox() {
 
   const handleLogout = async () => {
     dispatch(logoutThunk());
+    toast.success("Đăng xuất thành công!");
   };
 
   const handleOpen = (): void => {
@@ -86,7 +90,7 @@ function HeaderUserbox() {
   return (
     <>
       <UserBoxButton color="secondary" ref={ref} onClick={handleOpen}>
-        <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+        <Avatar variant="rounded" alt={user.name} />
         <Hidden mdDown>
           <UserBoxText>
             <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
@@ -113,7 +117,7 @@ function HeaderUserbox() {
         }}
       >
         <MenuUserBox sx={{ minWidth: 210 }} display="flex">
-          <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+          <Avatar variant="rounded" alt={user.name} />
           <UserBoxText>
             <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
             <UserBoxDescription variant="body2">

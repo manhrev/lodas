@@ -22,7 +22,6 @@ import {
   DialogActions,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
 import ImageIcon from "@mui/icons-material/Image";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
@@ -35,13 +34,15 @@ import {
   selectSheetSlice,
 } from "src/redux/feature/sheet/slice";
 import CreateDialog from "./CreateDialog";
-import { formatDate, formatDateTime } from "src/utils/helper/datetime";
+import { formatDate } from "src/utils/helper/datetime";
 import { ProvinceStr } from "src/utils/helper/enumstr";
 import { lodasClient } from "src/utils/grpc";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const Sheets = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const fetchSheets = () => {
     dispatch(
       listSheetsThunk({
@@ -99,7 +100,11 @@ const Sheets = () => {
               {sheetList.map((sheet, id) => (
                 <React.Fragment key={id}>
                   <Stack direction="row" spacing={1}>
-                    <ListItemButton>
+                    <ListItemButton
+                      onClick={() => {
+                        navigate("/sheet/" + sheet.id);
+                      }}
+                    >
                       <ListItemAvatar>
                         <Avatar>
                           <ImageIcon />
@@ -117,7 +122,7 @@ const Sheets = () => {
                             </Typography>
                           </div>
                         }
-                        secondary={`Tạo: ${formatDateTime(
+                        secondary={`Tạo: ${formatDate(
                           sheet.createdTime
                         )} | KQ: ${formatDate(sheet.resultTime)}`}
                       />

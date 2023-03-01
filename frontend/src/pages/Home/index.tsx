@@ -1,12 +1,5 @@
 import {
-  Box,
   Card,
-  Divider,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Paper,
   Table,
   TableBody,
@@ -16,10 +9,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { subDays } from "date-fns";
-import RecentOrdersTable from "src/content/applications/Transactions/RecentOrdersTable";
 import { CryptoOrder } from "src/models/crypto_order";
-import DraftsIcon from "@mui/icons-material/Drafts";
-import InboxIcon from "@mui/icons-material/Inbox";
 import { Helmet } from "react-helmet-async";
 
 function createData(
@@ -208,9 +198,7 @@ const Home = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Card>
-        <RecentOrdersTable cryptoOrders={cryptoOrders} />
-      </Card>
+      <Card></Card>
     </>
   );
 };

@@ -155,7 +155,7 @@ const CreateDialog = ({ fetchSheets }: CreateDialogProps) => {
           />
           <Box sx={{ mt: 1 }}>
             <DesktopDatePicker
-              label="Date desktop"
+              label="Ngày trả kết quả"
               inputFormat="DD/MM/YYYY"
               value={resultTime}
               onChange={handleResultTimeChange}

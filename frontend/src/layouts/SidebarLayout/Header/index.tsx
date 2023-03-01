@@ -45,7 +45,7 @@ function Header() {
   const [title, setTitle] = useState(document.title);
 
   useEffect(() => {
-    document.title = title;
+    setTitle(title);
   }, [title]);
   return (
     <HeaderWrapper
@@ -73,9 +73,7 @@ function Header() {
         alignItems="center"
         spacing={2}
       >
-        <Typography variant="h2" gutterBottom>
-          {title}
-        </Typography>
+        <Typography variant="h3" gutterBottom></Typography>
       </Stack>
       <Box display="flex" alignItems="center">
         <HeaderUserbox />

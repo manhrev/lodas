@@ -14,7 +14,7 @@ import { loginThunk } from "src/redux/feature/user/thunk";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import { useAppDispatch } from "src/redux/store";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 const MainContent = styled(Box)(
