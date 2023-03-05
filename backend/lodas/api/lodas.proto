@@ -102,6 +102,8 @@ message ListSheetsRequest {
     SheetSortBy sort_by = 4;
     google.protobuf.Timestamp from = 5;
     google.protobuf.Timestamp to = 6;
+    repeated int64 ids = 7;
+    SheetStatus status = 8;
 }
 
 enum SheetSortBy {
