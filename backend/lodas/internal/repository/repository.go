@@ -3,6 +3,7 @@ package repository
 import (
 	"github.com/manhrev/lodas/backend/lodas/internal/repository/betsetting"
 	"github.com/manhrev/lodas/backend/lodas/internal/repository/record"
+	"github.com/manhrev/lodas/backend/lodas/internal/repository/result"
 	"github.com/manhrev/lodas/backend/lodas/internal/repository/sheet"
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent"
 )
@@ -13,6 +14,7 @@ type Repository struct {
 	Sheet      sheet.Sheet
 	Record     record.Record
 	BetSetting betsetting.BetSetting
+	Result     result.Result
 }
 
 func New(entClient *ent.Client) *Repository {
@@ -22,5 +24,6 @@ func New(entClient *ent.Client) *Repository {
 		Sheet:      sheet.New(entClient),
 		Record:     record.New(entClient),
 		BetSetting: betsetting.New(entClient),
+		Result:     result.New(entClient),
 	}
 }

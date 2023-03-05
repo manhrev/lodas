@@ -64,7 +64,7 @@ var (
 	// SheetsColumns holds the columns for the "sheets" table.
 	SheetsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt64, Increment: true},
-		{Name: "status", Type: field.TypeInt64, Default: 0},
+		{Name: "status", Type: field.TypeInt64, Default: 1},
 		{Name: "name", Type: field.TypeString},
 		{Name: "area", Type: field.TypeInt64, Default: 0},
 		{Name: "province", Type: field.TypeInt64, Default: 0},

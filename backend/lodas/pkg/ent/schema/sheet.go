@@ -14,7 +14,7 @@ type Sheet struct {
 func (Sheet) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int64("id").Unique(),
-		field.Int64("status").Default(int64(lodas_pb.SheetStatus_SHEET_STATUS_UNSPECIFIED)),
+		field.Int64("status").Default(int64(lodas_pb.SheetStatus_SHEET_STATUS_NOT_SUBMITTED)),
 		field.String("name"),
 		field.Int64("area").Default(int64(lodas_pb.Area_AREA_UNSPECIFIED)),
 		field.Int64("province").Default(int64(lodas_pb.Province_UNSPECIFIED)),

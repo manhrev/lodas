@@ -41,6 +41,14 @@ func (rc *ResultCreate) SetCreatedTime(t time.Time) *ResultCreate {
 	return rc
 }
 
+// SetNillableCreatedTime sets the "created_time" field if the given value is not nil.
+func (rc *ResultCreate) SetNillableCreatedTime(t *time.Time) *ResultCreate {
+	if t != nil {
+		rc.SetCreatedTime(*t)
+	}
+	return rc
+}
+
 // SetPrizeMap sets the "prize_map" field.
 func (rc *ResultCreate) SetPrizeMap(sm *schema.PrizeMap) *ResultCreate {
 	rc.mutation.SetPrizeMap(sm)
@@ -91,6 +99,10 @@ func (rc *ResultCreate) defaults() {
 	if _, ok := rc.mutation.Province(); !ok {
 		v := result.DefaultProvince
 		rc.mutation.SetProvince(v)
+	}
+	if _, ok := rc.mutation.CreatedTime(); !ok {
+		v := result.DefaultCreatedTime
+		rc.mutation.SetCreatedTime(v)
 	}
 }
 
