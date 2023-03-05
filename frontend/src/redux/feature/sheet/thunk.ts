@@ -1,5 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ListRecordsRequest, ListSheetsRequest } from "src/lib/lodas/lodas_pb";
+import {
+  DeleteRecordRequest,
+  ListRecordsRequest,
+  ListSheetsRequest,
+} from "src/lib/lodas/lodas_pb";
 import { lodasClient } from "src/utils/grpc";
 
 export const listSheetsThunk = createAsyncThunk(
@@ -13,5 +17,12 @@ export const listRecordsThunk = createAsyncThunk(
   "lodas/listRecords",
   async (param: ListRecordsRequest.AsObject) => {
     return await lodasClient.listRecords(param);
+  }
+);
+
+export const deleteRecordThunk = createAsyncThunk(
+  "lodas/deleteRecord",
+  async (param: DeleteRecordRequest.AsObject) => {
+    return await lodasClient.deleteRecord(param);
   }
 );

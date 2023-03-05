@@ -1,17 +1,22 @@
 import { Area, BetType, Prize, Province } from "src/lib/lodas/lodas_pb";
 
 export function checkSoDanh(kieuDanh: number, num: string) {
-  // check e
-  const parsedNum = parseInt(num);
-  if (isNaN(parsedNum)) return false;
-  if (kieuDanh == 1 || kieuDanh == 3 || kieuDanh == 5) {
-    if (num.length != 2 || parsedNum > 99 || parsedNum < 0) return false;
-    return true;
-  }
-  if (kieuDanh == 2 || kieuDanh == 4) {
-    if (num.length != 3 || parsedNum > 999 || parsedNum < 0) return false;
-    return true;
-  }
+  // // check e
+  // const parsedNum = parseInt(num);
+  // if (isNaN(parsedNum)) return false;
+  // if (kieuDanh == 1 || kieuDanh == 3 || kieuDanh == 5) {
+  //   if (num.length != 2 || parsedNum > 99 || parsedNum < 0) return false;
+  //   return true;
+  // }
+  // if (kieuDanh == 2 || kieuDanh == 4) {
+  //   if (num.length != 3 || parsedNum > 999 || parsedNum < 0) return false;
+  //   return true;
+  // }
+  // return false;
+  let pattern = /^\d\d$/;
+  if (kieuDanh == 2 || kieuDanh == 4) pattern = /^\d\d\d$/;
+
+  if (pattern.test(num)) return true;
   return false;
 }
 
@@ -197,10 +202,10 @@ function checkGiaiSimple(
         return GiaiMT[Cum.DB].concat(GiaiMT[Cum.G8]);
       }
       if (giai === "DB") {
-        GiaiMT[Cum.DB];
+        return GiaiMT[Cum.DB];
       }
       if (giai === "C") {
-        GiaiMT[Cum.G8];
+        return GiaiMT[Cum.G8];
       }
       return null;
     }
@@ -244,10 +249,10 @@ function checkGiaiSimple(
         return GiaiMT[Cum.DB].concat(GiaiMT[Cum.G7]);
       }
       if (giai === "DB") {
-        GiaiMT[Cum.DB];
+        return GiaiMT[Cum.DB];
       }
       if (giai === "C") {
-        GiaiMT[Cum.G7];
+        return GiaiMT[Cum.G7];
       }
       return null;
     }

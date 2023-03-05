@@ -1,7 +1,15 @@
 import { Autocomplete, TextField, Chip, Button, Grid } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { Area, BetType, Prize, SheetInfo } from "src/lib/lodas/lodas_pb";
+import {
+  Area,
+  BetType,
+  Prize,
+  RecordSortBy,
+  SheetInfo,
+} from "src/lib/lodas/lodas_pb";
+import { listRecordsThunk } from "src/redux/feature/sheet/thunk";
+import { useAppDispatch } from "src/redux/store";
 import { lodasClient } from "src/utils/grpc";
 import { checkGiai, checkSoDanh } from "src/utils/helper";
 
@@ -26,6 +34,9 @@ const danhOptions: readonly KieuDanhType[] = [
 const giaiOptions = []; //["Dsà", "Df", "sdfs"];
 
 const CreateForm = ({ sheet }: CreateFormProps) => {
+  const dispatch = useAppDispatch();
+  const kieuDanhFocus = useRef(null);
+
   const [area] = useState<Area>(sheet.area);
   const [soDanhValue, setSoDanhValue] = useState<string[]>([]);
   const [soDanhError, setSoDanhError] = useState(false);
@@ -43,6 +54,13 @@ const CreateForm = ({ sheet }: CreateFormProps) => {
   const handleSoTienChange = (event) => {
     setSoTien(event.target.value);
     setSoTienError(false);
+  };
+
+  const clearForm = () => {
+    setSoDanhValue([]);
+    setGiaiDanhValue([]);
+    setGiaiDanhMap({});
+    setSoTien("");
   };
 
   const handleSubmit = async () => {
@@ -84,9 +102,23 @@ const CreateForm = ({ sheet }: CreateFormProps) => {
     if (error) {
       return toast.error("Lỗi khi tạo hàng");
     }
-
+    dispatch(
+      listRecordsThunk({
+        sheetId: sheet.id,
+        ascending: false,
+        limit: 999,
+        offset: 0,
+        sortBy: RecordSortBy.RECORD_SORT_BY_UNSPECIFIED,
+        from: undefined,
+        to: undefined,
+      })
+    );
+    clearForm();
+    kieuDanhFocus.current.focus();
     return toast.success("Tạo hàng thành công");
   };
+
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -94,6 +126,8 @@ const CreateForm = ({ sheet }: CreateFormProps) => {
         <Autocomplete
           value={kieuDanhValue}
           onChange={(event, newValue) => {
+            let finalVal = 0;
+            clearForm();
             if (typeof newValue === "string") {
               let ret = false;
               danhOptions.forEach((value) => {
@@ -102,18 +136,28 @@ const CreateForm = ({ sheet }: CreateFormProps) => {
                     title: newValue,
                     value: value.value,
                   });
+                  finalVal = value.value;
                   setKieuDanhError(false);
                   ret = true;
                 }
               });
-              if (ret) return;
-              setKieuDanhError(true);
+
+              if (!ret) setKieuDanhError(true);
             } else if (newValue && newValue.inputValue) {
+              if (newValue) finalVal = newValue.value;
               setKieuDanhValue(newValue);
               setKieuDanhError(false);
             } else {
+              if (newValue) finalVal = newValue.value;
               setKieuDanhValue(newValue);
               setKieuDanhError(false);
+            }
+
+            // auto set Giai cho de2, de3, da
+            if (finalVal == BetType.DE2 || finalVal == BetType.DE3) {
+              setGiaiDanhValue(["1DB"]);
+            } else if (finalVal == BetType.DA) {
+              setGiaiDanhValue(["All"]);
             }
           }}
           selectOnFocus
@@ -132,6 +176,7 @@ const CreateForm = ({ sheet }: CreateFormProps) => {
           freeSolo
           renderInput={(params) => (
             <TextField
+              inputRef={kieuDanhFocus}
               sx={{ backgroundColor: "white" }}
               {...params}
               label="Kiểu đánh"
@@ -149,11 +194,18 @@ const CreateForm = ({ sheet }: CreateFormProps) => {
       </Grid>
       <Grid item xs={12}>
         <Autocomplete
+          disabled={
+            !kieuDanhValue ||
+            kieuDanhValue.value == BetType.DE2 ||
+            kieuDanhValue.value == BetType.DE3 ||
+            kieuDanhValue.value == BetType.DA
+          }
           freeSolo
           multiple
           id="fixed-tags-demo"
           value={giaiDanhValue}
           onChange={(event, newValue: string[]) => {
+            if (!kieuDanhValue) setKieuDanhError(true);
             if (Array.isArray(newValue)) {
               let isOk = false; // if entered value correct
 
@@ -228,11 +280,13 @@ const CreateForm = ({ sheet }: CreateFormProps) => {
       </Grid>
       <Grid item xs={12}>
         <Autocomplete
+          disabled={!kieuDanhValue}
           freeSolo
           multiple
           id="fixed-tags-demo"
           value={soDanhValue}
           onChange={(event, newValue: string[]) => {
+            if (!kieuDanhValue) return setKieuDanhError(true);
             if (Array.isArray(newValue)) {
               if (newValue.length === 0) return setSoDanhValue(newValue);
               if (checkSoDanh(kieuDanhValue?.value || 0, newValue.at(-1))) {

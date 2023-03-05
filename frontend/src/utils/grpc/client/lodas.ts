@@ -5,6 +5,8 @@ import {
   CreateRecordRequest,
   CreateSheetReply,
   CreateSheetRequest,
+  DeleteRecordReply,
+  DeleteRecordRequest,
   DeleteSheetReply,
   DeleteSheetRequest,
   ListRecordsReply,
@@ -99,6 +101,16 @@ class rpcLodasClient extends gRPCClientAbstract {
 
     return await this.gRPCClientRequest<CreateRecordReply.AsObject>(
       "createRecord",
+      req
+    );
+  }
+
+  async deleteRecord(param: DeleteRecordRequest.AsObject) {
+    const req = new DeleteRecordRequest();
+    req.setIdsList(param.idsList);
+
+    return await this.gRPCClientRequest<DeleteRecordReply.AsObject>(
+      "deleteRecord",
       req
     );
   }
