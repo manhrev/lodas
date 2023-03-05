@@ -56,6 +56,14 @@ func (ru *ResultUpdate) SetCreatedTime(t time.Time) *ResultUpdate {
 	return ru
 }
 
+// SetNillableCreatedTime sets the "created_time" field if the given value is not nil.
+func (ru *ResultUpdate) SetNillableCreatedTime(t *time.Time) *ResultUpdate {
+	if t != nil {
+		ru.SetCreatedTime(*t)
+	}
+	return ru
+}
+
 // SetPrizeMap sets the "prize_map" field.
 func (ru *ResultUpdate) SetPrizeMap(sm *schema.PrizeMap) *ResultUpdate {
 	ru.mutation.SetPrizeMap(sm)
@@ -168,6 +176,14 @@ func (ruo *ResultUpdateOne) AddProvince(i int64) *ResultUpdateOne {
 // SetCreatedTime sets the "created_time" field.
 func (ruo *ResultUpdateOne) SetCreatedTime(t time.Time) *ResultUpdateOne {
 	ruo.mutation.SetCreatedTime(t)
+	return ruo
+}
+
+// SetNillableCreatedTime sets the "created_time" field if the given value is not nil.
+func (ruo *ResultUpdateOne) SetNillableCreatedTime(t *time.Time) *ResultUpdateOne {
+	if t != nil {
+		ruo.SetCreatedTime(*t)
+	}
 	return ruo
 }
 

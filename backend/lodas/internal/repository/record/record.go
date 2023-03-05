@@ -15,6 +15,7 @@ import (
 
 type Record interface {
 	Create(
+		// Note: check validation before calling this function
 		ctx context.Context,
 		sheetId int64,
 		numbers []string,

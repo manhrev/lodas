@@ -24,7 +24,9 @@ func (s *lodasServer) UpdateSheet(
 		request.GetArea(),
 		request.GetProvince(),
 		request.GetRatio(),
-		request.GetResultTime())
+		request.GetResultTime(),
+		request.GetStatus(),
+	)
 	if err != nil {
 		return nil, status.Internal(err.Error())
 	}

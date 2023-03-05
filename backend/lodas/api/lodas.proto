@@ -82,6 +82,7 @@ message UpdateSheetRequest {
     Province province =4; 
     double ratio = 5;
     google.protobuf.Timestamp result_time = 6;
+    int64 status = 7;
 }
 
 message UpdateSheetReply {

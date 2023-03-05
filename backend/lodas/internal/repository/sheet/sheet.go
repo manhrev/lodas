@@ -8,6 +8,7 @@ import (
 	lodas_pb "github.com/manhrev/lodas/backend/lodas/pkg/api"
 	"github.com/manhrev/lodas/backend/lodas/pkg/code"
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent"
+	"github.com/manhrev/lodas/backend/lodas/pkg/ent/betsetting"
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent/sheet"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
@@ -43,6 +44,7 @@ type Sheet interface {
 		province lodas_pb.Province,
 		ratio float64,
 		result_time *timestamppb.Timestamp,
+		status int64,
 	) error
 
 	Delete(
@@ -77,13 +79,20 @@ func (s *sheetImpl) Create(
 	ratio float64,
 	result_time *timestamppb.Timestamp,
 ) (*ent.Sheet, error) {
-	created_sheet, err := s.entClient.Sheet.Create().
+	newBetSettings, err := s.entClient.BetSetting.Query().Where(betsetting.UserIDEQ(userId)).Order(ent.Desc(betsetting.FieldCreatedTime)).All(ctx)
+	if err != nil || len(newBetSettings) == 0 {
+		return nil, status.Internal(err.Error())
+	}
+	newBetSetting := newBetSettings[0]
+
+	createdSheet, err := s.entClient.Sheet.Create().
 		SetUserID(userId).
 		SetName(name).
 		SetArea(int64(area)).
 		SetProvince(int64(province)).
 		SetRatio(float64(ratio)).
 		SetResultTime(result_time.AsTime()).
+		SetBetSetting(newBetSetting).
 		SetCreatedTime(time.Now()).
 		SetUpdatedTime(time.Now()).
 		Save(ctx)
@@ -92,7 +101,7 @@ func (s *sheetImpl) Create(
 		return nil, status.Internal(err.Error())
 	}
 
-	return created_sheet, nil
+	return createdSheet, nil
 }
 
 func (s *sheetImpl) List(
@@ -157,6 +166,7 @@ func (s *sheetImpl) Update(
 	province lodas_pb.Province,
 	ratio float64,
 	result_time *timestamppb.Timestamp,
+	sheet_status int64,
 ) error {
 	numUpdated, err := s.entClient.Sheet.Update().
 		SetName(name).
@@ -165,6 +175,7 @@ func (s *sheetImpl) Update(
 		SetRatio(float64(ratio)).
 		SetUpdatedTime(time.Now()).
 		SetResultTime(result_time.AsTime()).
+		SetStatus(sheet_status).
 		Where(sheet.IDEQ(sheetId), sheet.UserIDEQ(userId)).
 		Save(ctx)
 
