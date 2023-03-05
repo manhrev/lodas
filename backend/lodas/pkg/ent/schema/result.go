@@ -23,7 +23,7 @@ func (Result) Fields() []ent.Field {
 	}
 }
 
-type PrizeMap map[lodas_pb.Prize][]string
+type PrizeMap map[lodas_pb.Prize]string
 
 func (p *PrizeMap) UnmarshalByte(data []byte) error {
 	return json.Unmarshal(data, p)

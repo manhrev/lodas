@@ -46,7 +46,7 @@ func transformEntRecordListToRecordList(entRecordList []*ent.Record) []*lodas_pb
 		if recordEnt.WinInfo != nil {
 			for key, value := range *recordEnt.WinInfo {
 				// wininfo contain only 1 number -> value[0]
-				winInfo[int64(key)] = value[0]
+				winInfo[int64(key)] = value
 			}
 		}
 
