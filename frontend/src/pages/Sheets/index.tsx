@@ -25,7 +25,7 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { Helmet } from "react-helmet-async";
 import { useAppDispatch, useAppSelector } from "src/redux/store";
 import { listSheetsThunk } from "src/redux/feature/sheet/thunk";
-import { SheetSortBy } from "src/lib/lodas/lodas_pb";
+import { SheetSortBy, SheetStatus } from "src/lib/lodas/lodas_pb";
 import {
   isSheetSliceLoading,
   selectSheetSlice,
@@ -49,6 +49,8 @@ const Sheets = () => {
         sortBy: SheetSortBy.SHEET_SORT_BY_UNSPECIFIED,
         from: undefined,
         to: undefined,
+        idsList: [],
+        status: SheetStatus.SHEET_STATUS_NOT_SUBMITTED,
       })
     );
   };

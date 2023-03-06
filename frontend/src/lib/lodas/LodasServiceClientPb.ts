@@ -207,6 +207,49 @@ export class LodasClient {
     this.methodDescriptorListSheets);
   }
 
+  methodDescriptorSubmitSheet = new grpcWeb.MethodDescriptor(
+    '/lodas.Lodas/SubmitSheet',
+    grpcWeb.MethodType.UNARY,
+    lodas_pb.SubmitSheetRequest,
+    lodas_pb.SubmitSheetReply,
+    (request: lodas_pb.SubmitSheetRequest) => {
+      return request.serializeBinary();
+    },
+    lodas_pb.SubmitSheetReply.deserializeBinary
+  );
+
+  submitSheet(
+    request: lodas_pb.SubmitSheetRequest,
+    metadata: grpcWeb.Metadata | null): Promise<lodas_pb.SubmitSheetReply>;
+
+  submitSheet(
+    request: lodas_pb.SubmitSheetRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: lodas_pb.SubmitSheetReply) => void): grpcWeb.ClientReadableStream<lodas_pb.SubmitSheetReply>;
+
+  submitSheet(
+    request: lodas_pb.SubmitSheetRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: lodas_pb.SubmitSheetReply) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/lodas.Lodas/SubmitSheet',
+        request,
+        metadata || {},
+        this.methodDescriptorSubmitSheet,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/lodas.Lodas/SubmitSheet',
+    request,
+    metadata || {},
+    this.methodDescriptorSubmitSheet);
+  }
+
   methodDescriptorListRecords = new grpcWeb.MethodDescriptor(
     '/lodas.Lodas/ListRecords',
     grpcWeb.MethodType.UNARY,

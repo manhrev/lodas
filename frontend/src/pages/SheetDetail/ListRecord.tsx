@@ -14,7 +14,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { RecordSortBy } from "src/lib/lodas/lodas_pb";
@@ -26,9 +25,7 @@ import {
 import { useAppDispatch, useAppSelector } from "src/redux/store";
 import { BetTypeStr, PrizeStr } from "src/utils/helper/enumstr";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { lodasClient } from "src/utils/grpc";
 import { toast } from "react-toastify";
-import { Box } from "@mui/system";
 
 interface ListRecordProps {
   sheet_id: number;
@@ -102,9 +99,10 @@ const ListRecord = ({ sheet_id }: ListRecordProps) => {
                       .map((prize) => PrizeStr[prize])
                       .toString()
                       .split(",")
-                      .map((value) => {
+                      .map((value, idx) => {
                         return (
                           <Chip
+                            key={idx}
                             label={<strong>{value}</strong>}
                             size="small"
                             color="error"
@@ -116,9 +114,10 @@ const ListRecord = ({ sheet_id }: ListRecordProps) => {
                     {row.numbersList
                       .toString()
                       .split(",")
-                      .map((value) => {
+                      .map((value, idx) => {
                         return (
                           <Chip
+                            key={idx}
                             label={<strong>{value}</strong>}
                             size="small"
                             color="primary"
@@ -142,9 +141,11 @@ const ListRecord = ({ sheet_id }: ListRecordProps) => {
                 </TableRow>
               ))
             ) : (
-              <TableCell colSpan={6} align="center">
-                <strong>Không có dữ liệu</strong>
-              </TableCell>
+              <TableRow>
+                <TableCell colSpan={6} align="center">
+                  <strong>Không có dữ liệu</strong>
+                </TableCell>
+              </TableRow>
             )}
           </TableBody>
         </Table>

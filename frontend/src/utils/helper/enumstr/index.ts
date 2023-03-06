@@ -1,4 +1,10 @@
-import { Area, BetType, Province, Prize } from "src/lib/lodas/lodas_pb";
+import {
+  Area,
+  BetType,
+  Province,
+  Prize,
+  SheetStatus,
+} from "src/lib/lodas/lodas_pb";
 
 export const ProvinceStr = {
   [Province.UNSPECIFIED]: "?",
@@ -67,4 +73,11 @@ export const PrizeStr = {
   [Prize.PRIZE_3G7]: "3G7",
   [Prize.PRIZE_4G7]: "4G7",
   [Prize.PRIZE_1G8]: "1G8",
+};
+
+export const SheetStatusStr = {
+  [SheetStatus.SHEET_STATUS_UNSPECIFIED]: "?",
+  [SheetStatus.SHEET_STATUS_NOT_SUBMITTED]: "Chưa gửi",
+  [SheetStatus.SHEET_STATUS_SUBMITTED]: "Đã gửi",
+  [SheetStatus.SHEET_STATUS_GOT_RESULT]: "Đã có kết quả",
 };

@@ -108,6 +108,9 @@ export class UpdateSheetRequest extends jspb.Message {
   hasResultTime(): boolean;
   clearResultTime(): UpdateSheetRequest;
 
+  getStatus(): number;
+  setStatus(value: number): UpdateSheetRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): UpdateSheetRequest.AsObject;
   static toObject(includeInstance: boolean, msg: UpdateSheetRequest): UpdateSheetRequest.AsObject;
@@ -124,6 +127,7 @@ export namespace UpdateSheetRequest {
     province: Province,
     ratio: number,
     resultTime?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    status: number,
   }
 }
 
@@ -137,6 +141,38 @@ export class UpdateSheetReply extends jspb.Message {
 }
 
 export namespace UpdateSheetReply {
+  export type AsObject = {
+  }
+}
+
+export class SubmitSheetRequest extends jspb.Message {
+  getId(): number;
+  setId(value: number): SubmitSheetRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SubmitSheetRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: SubmitSheetRequest): SubmitSheetRequest.AsObject;
+  static serializeBinaryToWriter(message: SubmitSheetRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SubmitSheetRequest;
+  static deserializeBinaryFromReader(message: SubmitSheetRequest, reader: jspb.BinaryReader): SubmitSheetRequest;
+}
+
+export namespace SubmitSheetRequest {
+  export type AsObject = {
+    id: number,
+  }
+}
+
+export class SubmitSheetReply extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SubmitSheetReply.AsObject;
+  static toObject(includeInstance: boolean, msg: SubmitSheetReply): SubmitSheetReply.AsObject;
+  static serializeBinaryToWriter(message: SubmitSheetReply, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SubmitSheetReply;
+  static deserializeBinaryFromReader(message: SubmitSheetReply, reader: jspb.BinaryReader): SubmitSheetReply;
+}
+
+export namespace SubmitSheetReply {
   export type AsObject = {
   }
 }
@@ -164,6 +200,14 @@ export class ListSheetsRequest extends jspb.Message {
   hasTo(): boolean;
   clearTo(): ListSheetsRequest;
 
+  getIdsList(): Array<number>;
+  setIdsList(value: Array<number>): ListSheetsRequest;
+  clearIdsList(): ListSheetsRequest;
+  addIds(value: number, index?: number): ListSheetsRequest;
+
+  getStatus(): SheetStatus;
+  setStatus(value: SheetStatus): ListSheetsRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ListSheetsRequest.AsObject;
   static toObject(includeInstance: boolean, msg: ListSheetsRequest): ListSheetsRequest.AsObject;
@@ -180,6 +224,8 @@ export namespace ListSheetsRequest {
     sortBy: SheetSortBy,
     from?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     to?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    idsList: Array<number>,
+    status: SheetStatus,
   }
 }
 

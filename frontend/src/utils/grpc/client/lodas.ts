@@ -13,6 +13,8 @@ import {
   ListRecordsRequest,
   ListSheetsReply,
   ListSheetsRequest,
+  SubmitSheetReply,
+  SubmitSheetRequest,
 } from "src/lib/lodas/lodas_pb";
 import gRPCClientAbstract from "../abstract/gRPCClient";
 import { GRPCClientConfig } from "../abstract/types";
@@ -35,6 +37,7 @@ class rpcLodasClient extends gRPCClientAbstract {
     req.setTo(
       param.to ? new Timestamp().setSeconds(param.to.seconds) : undefined
     );
+    req.setStatus(param.status);
 
     return await this.gRPCClientRequest<ListSheetsReply.AsObject>(
       "listSheets",
@@ -111,6 +114,16 @@ class rpcLodasClient extends gRPCClientAbstract {
 
     return await this.gRPCClientRequest<DeleteRecordReply.AsObject>(
       "deleteRecord",
+      req
+    );
+  }
+
+  async submitSheet(param: SubmitSheetRequest.AsObject) {
+    const req = new SubmitSheetRequest();
+    req.setId(param.id);
+
+    return await this.gRPCClientRequest<SubmitSheetReply.AsObject>(
+      "submitSheet",
       req
     );
   }

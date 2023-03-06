@@ -12,6 +12,8 @@ import { useAppSelector } from "./redux/store";
 import { selectUserSlice } from "./redux/feature/user/slice";
 import Login from "./pages/Login";
 import Status404 from "./pages/Status404";
+import SheetResult from "./pages/SheetResult";
+import SheetResultRecord from "./pages/SheetResult/Detail";
 
 // Pages
 
@@ -53,7 +55,11 @@ const routes = (): RouteObject[] => {
         },
         {
           path: "ket-qua",
-          element: <div>Ketqua</div>,
+          element: <SheetResult />,
+        },
+        {
+          path: "ket-qua/:id",
+          element: <SheetResultRecord />,
         },
         {
           path: "*",
