@@ -155,9 +155,15 @@ const CreateForm = ({ sheet }: CreateFormProps) => {
 
             // auto set Giai cho de2, de3, da
             if (finalVal == BetType.DE2 || finalVal == BetType.DE3) {
-              setGiaiDanhValue(["1DB"]);
+              setGiaiDanhValue(["DB"]);
+              const listPrize = checkGiai("DB", area, finalVal);
+
+              setGiaiDanhMap({ DB: listPrize });
             } else if (finalVal == BetType.DA) {
               setGiaiDanhValue(["All"]);
+              const listPrize = checkGiai("All", area, finalVal);
+              console.log(listPrize);
+              setGiaiDanhMap({ All: listPrize });
             }
           }}
           selectOnFocus
@@ -176,6 +182,7 @@ const CreateForm = ({ sheet }: CreateFormProps) => {
           freeSolo
           renderInput={(params) => (
             <TextField
+              autoFocus
               inputRef={kieuDanhFocus}
               sx={{ backgroundColor: "white" }}
               {...params}

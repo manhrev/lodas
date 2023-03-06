@@ -36,7 +36,7 @@ export const BetTypeStr = {
 
 export const PrizeStr = {
   [Prize.PRIZE_UNSPECIFIED]: "?",
-  [Prize.PRIZE_1DB]: "1DB",
+  [Prize.PRIZE_1DB]: "DB",
   [Prize.PRIZE_1G1]: "1G1",
   [Prize.PRIZE_1G2]: "1G2",
   [Prize.PRIZE_2G2]: "2G2",
