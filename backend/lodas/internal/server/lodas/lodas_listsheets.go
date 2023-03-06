@@ -28,6 +28,8 @@ func (s *lodasServer) ListSheets(
 		request.GetSortBy(),
 		request.GetFrom(),
 		request.GetTo(),
+		request.GetIds(),
+		request.GetStatus(),
 	)
 	if err != nil {
 		return nil, err
