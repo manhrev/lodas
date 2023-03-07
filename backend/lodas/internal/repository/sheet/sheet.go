@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/manhrev/lodas/backend/lodas/internal/status"
+	lodas "github.com/manhrev/lodas/backend/lodas/pkg/api"
 	lodas_pb "github.com/manhrev/lodas/backend/lodas/pkg/api"
 	"github.com/manhrev/lodas/backend/lodas/pkg/code"
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent"
@@ -33,6 +34,8 @@ type Sheet interface {
 		sortBy lodas_pb.SheetSortBy,
 		from *timestamppb.Timestamp,
 		to *timestamppb.Timestamp,
+		ids []int64,
+		sheetStatus lodas.SheetStatus,
 	) ([]*ent.Sheet, int64, error)
 
 	Update(
@@ -113,10 +116,23 @@ func (s *sheetImpl) List(
 	sortBy lodas_pb.SheetSortBy,
 	from *timestamppb.Timestamp,
 	to *timestamppb.Timestamp,
+	ids []int64,
+	sheetStatus lodas.SheetStatus,
 ) ([]*ent.Sheet, int64, error) {
 	query := s.entClient.Sheet.Query().
 		Where(sheet.UserIDEQ(userId))
 
+	if len(ids) > 0 {
+		query.Where(sheet.IDIn(ids...))
+	}
+	switch int64(sheetStatus) {
+	case int64(lodas.SheetStatus_SHEET_STATUS_NOT_SUBMITTED):
+		query.Where(sheet.StatusEQ(int64(lodas.SheetStatus_SHEET_STATUS_NOT_SUBMITTED)))
+	case int64(lodas.SheetStatus_SHEET_STATUS_SUBMITTED):
+		query.Where(sheet.StatusIn(int64(lodas.SheetStatus_SHEET_STATUS_SUBMITTED), int64(lodas.SheetStatus_SHEET_STATUS_GOT_RESULT)))
+	case int64(lodas.SheetStatus_SHEET_STATUS_GOT_RESULT):
+		query.Where(sheet.StatusEQ(int64(lodas.SheetStatus_SHEET_STATUS_GOT_RESULT)))
+	}
 	// ascending?
 	if ascending {
 		query.Order(ent.Asc(sheet.FieldUpdatedTime))
