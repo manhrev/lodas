@@ -2101,6 +2101,12 @@ type SheetMutation struct {
 	addprovince        *int64
 	ratio              *float64
 	addratio           *float64
+	win_ratio          *float64
+	addwin_ratio       *float64
+	total_cashin       *int64
+	addtotal_cashin    *int64
+	total_cashout      *int64
+	addtotal_cashout   *int64
 	result_time        *time.Time
 	created_time       *time.Time
 	updated_time       *time.Time
@@ -2481,6 +2487,174 @@ func (m *SheetMutation) ResetRatio() {
 	m.addratio = nil
 }
 
+// SetWinRatio sets the "win_ratio" field.
+func (m *SheetMutation) SetWinRatio(f float64) {
+	m.win_ratio = &f
+	m.addwin_ratio = nil
+}
+
+// WinRatio returns the value of the "win_ratio" field in the mutation.
+func (m *SheetMutation) WinRatio() (r float64, exists bool) {
+	v := m.win_ratio
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldWinRatio returns the old "win_ratio" field's value of the Sheet entity.
+// If the Sheet object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SheetMutation) OldWinRatio(ctx context.Context) (v float64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldWinRatio is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldWinRatio requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldWinRatio: %w", err)
+	}
+	return oldValue.WinRatio, nil
+}
+
+// AddWinRatio adds f to the "win_ratio" field.
+func (m *SheetMutation) AddWinRatio(f float64) {
+	if m.addwin_ratio != nil {
+		*m.addwin_ratio += f
+	} else {
+		m.addwin_ratio = &f
+	}
+}
+
+// AddedWinRatio returns the value that was added to the "win_ratio" field in this mutation.
+func (m *SheetMutation) AddedWinRatio() (r float64, exists bool) {
+	v := m.addwin_ratio
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetWinRatio resets all changes to the "win_ratio" field.
+func (m *SheetMutation) ResetWinRatio() {
+	m.win_ratio = nil
+	m.addwin_ratio = nil
+}
+
+// SetTotalCashin sets the "total_cashin" field.
+func (m *SheetMutation) SetTotalCashin(i int64) {
+	m.total_cashin = &i
+	m.addtotal_cashin = nil
+}
+
+// TotalCashin returns the value of the "total_cashin" field in the mutation.
+func (m *SheetMutation) TotalCashin() (r int64, exists bool) {
+	v := m.total_cashin
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTotalCashin returns the old "total_cashin" field's value of the Sheet entity.
+// If the Sheet object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SheetMutation) OldTotalCashin(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTotalCashin is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTotalCashin requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTotalCashin: %w", err)
+	}
+	return oldValue.TotalCashin, nil
+}
+
+// AddTotalCashin adds i to the "total_cashin" field.
+func (m *SheetMutation) AddTotalCashin(i int64) {
+	if m.addtotal_cashin != nil {
+		*m.addtotal_cashin += i
+	} else {
+		m.addtotal_cashin = &i
+	}
+}
+
+// AddedTotalCashin returns the value that was added to the "total_cashin" field in this mutation.
+func (m *SheetMutation) AddedTotalCashin() (r int64, exists bool) {
+	v := m.addtotal_cashin
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetTotalCashin resets all changes to the "total_cashin" field.
+func (m *SheetMutation) ResetTotalCashin() {
+	m.total_cashin = nil
+	m.addtotal_cashin = nil
+}
+
+// SetTotalCashout sets the "total_cashout" field.
+func (m *SheetMutation) SetTotalCashout(i int64) {
+	m.total_cashout = &i
+	m.addtotal_cashout = nil
+}
+
+// TotalCashout returns the value of the "total_cashout" field in the mutation.
+func (m *SheetMutation) TotalCashout() (r int64, exists bool) {
+	v := m.total_cashout
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTotalCashout returns the old "total_cashout" field's value of the Sheet entity.
+// If the Sheet object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SheetMutation) OldTotalCashout(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTotalCashout is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTotalCashout requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTotalCashout: %w", err)
+	}
+	return oldValue.TotalCashout, nil
+}
+
+// AddTotalCashout adds i to the "total_cashout" field.
+func (m *SheetMutation) AddTotalCashout(i int64) {
+	if m.addtotal_cashout != nil {
+		*m.addtotal_cashout += i
+	} else {
+		m.addtotal_cashout = &i
+	}
+}
+
+// AddedTotalCashout returns the value that was added to the "total_cashout" field in this mutation.
+func (m *SheetMutation) AddedTotalCashout() (r int64, exists bool) {
+	v := m.addtotal_cashout
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetTotalCashout resets all changes to the "total_cashout" field.
+func (m *SheetMutation) ResetTotalCashout() {
+	m.total_cashout = nil
+	m.addtotal_cashout = nil
+}
+
 // SetResultTime sets the "result_time" field.
 func (m *SheetMutation) SetResultTime(t time.Time) {
 	m.result_time = &t
@@ -2772,7 +2946,7 @@ func (m *SheetMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *SheetMutation) Fields() []string {
-	fields := make([]string, 0, 9)
+	fields := make([]string, 0, 12)
 	if m.status != nil {
 		fields = append(fields, sheet.FieldStatus)
 	}
@@ -2787,6 +2961,15 @@ func (m *SheetMutation) Fields() []string {
 	}
 	if m.ratio != nil {
 		fields = append(fields, sheet.FieldRatio)
+	}
+	if m.win_ratio != nil {
+		fields = append(fields, sheet.FieldWinRatio)
+	}
+	if m.total_cashin != nil {
+		fields = append(fields, sheet.FieldTotalCashin)
+	}
+	if m.total_cashout != nil {
+		fields = append(fields, sheet.FieldTotalCashout)
 	}
 	if m.result_time != nil {
 		fields = append(fields, sheet.FieldResultTime)
@@ -2818,6 +3001,12 @@ func (m *SheetMutation) Field(name string) (ent.Value, bool) {
 		return m.Province()
 	case sheet.FieldRatio:
 		return m.Ratio()
+	case sheet.FieldWinRatio:
+		return m.WinRatio()
+	case sheet.FieldTotalCashin:
+		return m.TotalCashin()
+	case sheet.FieldTotalCashout:
+		return m.TotalCashout()
 	case sheet.FieldResultTime:
 		return m.ResultTime()
 	case sheet.FieldCreatedTime:
@@ -2845,6 +3034,12 @@ func (m *SheetMutation) OldField(ctx context.Context, name string) (ent.Value, e
 		return m.OldProvince(ctx)
 	case sheet.FieldRatio:
 		return m.OldRatio(ctx)
+	case sheet.FieldWinRatio:
+		return m.OldWinRatio(ctx)
+	case sheet.FieldTotalCashin:
+		return m.OldTotalCashin(ctx)
+	case sheet.FieldTotalCashout:
+		return m.OldTotalCashout(ctx)
 	case sheet.FieldResultTime:
 		return m.OldResultTime(ctx)
 	case sheet.FieldCreatedTime:
@@ -2897,6 +3092,27 @@ func (m *SheetMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetRatio(v)
 		return nil
+	case sheet.FieldWinRatio:
+		v, ok := value.(float64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetWinRatio(v)
+		return nil
+	case sheet.FieldTotalCashin:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTotalCashin(v)
+		return nil
+	case sheet.FieldTotalCashout:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTotalCashout(v)
+		return nil
 	case sheet.FieldResultTime:
 		v, ok := value.(time.Time)
 		if !ok {
@@ -2945,6 +3161,15 @@ func (m *SheetMutation) AddedFields() []string {
 	if m.addratio != nil {
 		fields = append(fields, sheet.FieldRatio)
 	}
+	if m.addwin_ratio != nil {
+		fields = append(fields, sheet.FieldWinRatio)
+	}
+	if m.addtotal_cashin != nil {
+		fields = append(fields, sheet.FieldTotalCashin)
+	}
+	if m.addtotal_cashout != nil {
+		fields = append(fields, sheet.FieldTotalCashout)
+	}
 	if m.adduser_id != nil {
 		fields = append(fields, sheet.FieldUserID)
 	}
@@ -2964,6 +3189,12 @@ func (m *SheetMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedProvince()
 	case sheet.FieldRatio:
 		return m.AddedRatio()
+	case sheet.FieldWinRatio:
+		return m.AddedWinRatio()
+	case sheet.FieldTotalCashin:
+		return m.AddedTotalCashin()
+	case sheet.FieldTotalCashout:
+		return m.AddedTotalCashout()
 	case sheet.FieldUserID:
 		return m.AddedUserID()
 	}
@@ -3002,6 +3233,27 @@ func (m *SheetMutation) AddField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddRatio(v)
+		return nil
+	case sheet.FieldWinRatio:
+		v, ok := value.(float64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddWinRatio(v)
+		return nil
+	case sheet.FieldTotalCashin:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddTotalCashin(v)
+		return nil
+	case sheet.FieldTotalCashout:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddTotalCashout(v)
 		return nil
 	case sheet.FieldUserID:
 		v, ok := value.(int64)
@@ -3051,6 +3303,15 @@ func (m *SheetMutation) ResetField(name string) error {
 		return nil
 	case sheet.FieldRatio:
 		m.ResetRatio()
+		return nil
+	case sheet.FieldWinRatio:
+		m.ResetWinRatio()
+		return nil
+	case sheet.FieldTotalCashin:
+		m.ResetTotalCashin()
+		return nil
+	case sheet.FieldTotalCashout:
+		m.ResetTotalCashout()
 		return nil
 	case sheet.FieldResultTime:
 		m.ResetResultTime()

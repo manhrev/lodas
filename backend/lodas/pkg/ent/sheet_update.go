@@ -120,6 +120,69 @@ func (su *SheetUpdate) AddRatio(f float64) *SheetUpdate {
 	return su
 }
 
+// SetWinRatio sets the "win_ratio" field.
+func (su *SheetUpdate) SetWinRatio(f float64) *SheetUpdate {
+	su.mutation.ResetWinRatio()
+	su.mutation.SetWinRatio(f)
+	return su
+}
+
+// SetNillableWinRatio sets the "win_ratio" field if the given value is not nil.
+func (su *SheetUpdate) SetNillableWinRatio(f *float64) *SheetUpdate {
+	if f != nil {
+		su.SetWinRatio(*f)
+	}
+	return su
+}
+
+// AddWinRatio adds f to the "win_ratio" field.
+func (su *SheetUpdate) AddWinRatio(f float64) *SheetUpdate {
+	su.mutation.AddWinRatio(f)
+	return su
+}
+
+// SetTotalCashin sets the "total_cashin" field.
+func (su *SheetUpdate) SetTotalCashin(i int64) *SheetUpdate {
+	su.mutation.ResetTotalCashin()
+	su.mutation.SetTotalCashin(i)
+	return su
+}
+
+// SetNillableTotalCashin sets the "total_cashin" field if the given value is not nil.
+func (su *SheetUpdate) SetNillableTotalCashin(i *int64) *SheetUpdate {
+	if i != nil {
+		su.SetTotalCashin(*i)
+	}
+	return su
+}
+
+// AddTotalCashin adds i to the "total_cashin" field.
+func (su *SheetUpdate) AddTotalCashin(i int64) *SheetUpdate {
+	su.mutation.AddTotalCashin(i)
+	return su
+}
+
+// SetTotalCashout sets the "total_cashout" field.
+func (su *SheetUpdate) SetTotalCashout(i int64) *SheetUpdate {
+	su.mutation.ResetTotalCashout()
+	su.mutation.SetTotalCashout(i)
+	return su
+}
+
+// SetNillableTotalCashout sets the "total_cashout" field if the given value is not nil.
+func (su *SheetUpdate) SetNillableTotalCashout(i *int64) *SheetUpdate {
+	if i != nil {
+		su.SetTotalCashout(*i)
+	}
+	return su
+}
+
+// AddTotalCashout adds i to the "total_cashout" field.
+func (su *SheetUpdate) AddTotalCashout(i int64) *SheetUpdate {
+	su.mutation.AddTotalCashout(i)
+	return su
+}
+
 // SetResultTime sets the "result_time" field.
 func (su *SheetUpdate) SetResultTime(t time.Time) *SheetUpdate {
 	su.mutation.SetResultTime(t)
@@ -288,6 +351,24 @@ func (su *SheetUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := su.mutation.AddedRatio(); ok {
 		_spec.AddField(sheet.FieldRatio, field.TypeFloat64, value)
+	}
+	if value, ok := su.mutation.WinRatio(); ok {
+		_spec.SetField(sheet.FieldWinRatio, field.TypeFloat64, value)
+	}
+	if value, ok := su.mutation.AddedWinRatio(); ok {
+		_spec.AddField(sheet.FieldWinRatio, field.TypeFloat64, value)
+	}
+	if value, ok := su.mutation.TotalCashin(); ok {
+		_spec.SetField(sheet.FieldTotalCashin, field.TypeInt64, value)
+	}
+	if value, ok := su.mutation.AddedTotalCashin(); ok {
+		_spec.AddField(sheet.FieldTotalCashin, field.TypeInt64, value)
+	}
+	if value, ok := su.mutation.TotalCashout(); ok {
+		_spec.SetField(sheet.FieldTotalCashout, field.TypeInt64, value)
+	}
+	if value, ok := su.mutation.AddedTotalCashout(); ok {
+		_spec.AddField(sheet.FieldTotalCashout, field.TypeInt64, value)
 	}
 	if value, ok := su.mutation.ResultTime(); ok {
 		_spec.SetField(sheet.FieldResultTime, field.TypeTime, value)
@@ -503,6 +584,69 @@ func (suo *SheetUpdateOne) AddRatio(f float64) *SheetUpdateOne {
 	return suo
 }
 
+// SetWinRatio sets the "win_ratio" field.
+func (suo *SheetUpdateOne) SetWinRatio(f float64) *SheetUpdateOne {
+	suo.mutation.ResetWinRatio()
+	suo.mutation.SetWinRatio(f)
+	return suo
+}
+
+// SetNillableWinRatio sets the "win_ratio" field if the given value is not nil.
+func (suo *SheetUpdateOne) SetNillableWinRatio(f *float64) *SheetUpdateOne {
+	if f != nil {
+		suo.SetWinRatio(*f)
+	}
+	return suo
+}
+
+// AddWinRatio adds f to the "win_ratio" field.
+func (suo *SheetUpdateOne) AddWinRatio(f float64) *SheetUpdateOne {
+	suo.mutation.AddWinRatio(f)
+	return suo
+}
+
+// SetTotalCashin sets the "total_cashin" field.
+func (suo *SheetUpdateOne) SetTotalCashin(i int64) *SheetUpdateOne {
+	suo.mutation.ResetTotalCashin()
+	suo.mutation.SetTotalCashin(i)
+	return suo
+}
+
+// SetNillableTotalCashin sets the "total_cashin" field if the given value is not nil.
+func (suo *SheetUpdateOne) SetNillableTotalCashin(i *int64) *SheetUpdateOne {
+	if i != nil {
+		suo.SetTotalCashin(*i)
+	}
+	return suo
+}
+
+// AddTotalCashin adds i to the "total_cashin" field.
+func (suo *SheetUpdateOne) AddTotalCashin(i int64) *SheetUpdateOne {
+	suo.mutation.AddTotalCashin(i)
+	return suo
+}
+
+// SetTotalCashout sets the "total_cashout" field.
+func (suo *SheetUpdateOne) SetTotalCashout(i int64) *SheetUpdateOne {
+	suo.mutation.ResetTotalCashout()
+	suo.mutation.SetTotalCashout(i)
+	return suo
+}
+
+// SetNillableTotalCashout sets the "total_cashout" field if the given value is not nil.
+func (suo *SheetUpdateOne) SetNillableTotalCashout(i *int64) *SheetUpdateOne {
+	if i != nil {
+		suo.SetTotalCashout(*i)
+	}
+	return suo
+}
+
+// AddTotalCashout adds i to the "total_cashout" field.
+func (suo *SheetUpdateOne) AddTotalCashout(i int64) *SheetUpdateOne {
+	suo.mutation.AddTotalCashout(i)
+	return suo
+}
+
 // SetResultTime sets the "result_time" field.
 func (suo *SheetUpdateOne) SetResultTime(t time.Time) *SheetUpdateOne {
 	suo.mutation.SetResultTime(t)
@@ -695,6 +839,24 @@ func (suo *SheetUpdateOne) sqlSave(ctx context.Context) (_node *Sheet, err error
 	}
 	if value, ok := suo.mutation.AddedRatio(); ok {
 		_spec.AddField(sheet.FieldRatio, field.TypeFloat64, value)
+	}
+	if value, ok := suo.mutation.WinRatio(); ok {
+		_spec.SetField(sheet.FieldWinRatio, field.TypeFloat64, value)
+	}
+	if value, ok := suo.mutation.AddedWinRatio(); ok {
+		_spec.AddField(sheet.FieldWinRatio, field.TypeFloat64, value)
+	}
+	if value, ok := suo.mutation.TotalCashin(); ok {
+		_spec.SetField(sheet.FieldTotalCashin, field.TypeInt64, value)
+	}
+	if value, ok := suo.mutation.AddedTotalCashin(); ok {
+		_spec.AddField(sheet.FieldTotalCashin, field.TypeInt64, value)
+	}
+	if value, ok := suo.mutation.TotalCashout(); ok {
+		_spec.SetField(sheet.FieldTotalCashout, field.TypeInt64, value)
+	}
+	if value, ok := suo.mutation.AddedTotalCashout(); ok {
+		_spec.AddField(sheet.FieldTotalCashout, field.TypeInt64, value)
 	}
 	if value, ok := suo.mutation.ResultTime(); ok {
 		_spec.SetField(sheet.FieldResultTime, field.TypeTime, value)

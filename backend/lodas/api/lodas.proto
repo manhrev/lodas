@@ -123,9 +123,12 @@ message SheetInfo {
     Area area = 4;
     Province province = 5;
     double ratio = 6;
-    google.protobuf.Timestamp result_time = 7;
-    google.protobuf.Timestamp created_time = 8;
-    google.protobuf.Timestamp updated_time = 9;
+    double win_ratio = 7;
+    int64 total_cashin = 8;
+    int64 total_cashout = 9;
+    google.protobuf.Timestamp result_time = 10;
+    google.protobuf.Timestamp created_time = 11;
+    google.protobuf.Timestamp updated_time = 12;
 
 }
 

@@ -49,4 +49,16 @@ func init() {
 	sheetDescRatio := sheetFields[5].Descriptor()
 	// sheet.DefaultRatio holds the default value on creation for the ratio field.
 	sheet.DefaultRatio = sheetDescRatio.Default.(float64)
+	// sheetDescWinRatio is the schema descriptor for win_ratio field.
+	sheetDescWinRatio := sheetFields[6].Descriptor()
+	// sheet.DefaultWinRatio holds the default value on creation for the win_ratio field.
+	sheet.DefaultWinRatio = sheetDescWinRatio.Default.(float64)
+	// sheetDescTotalCashin is the schema descriptor for total_cashin field.
+	sheetDescTotalCashin := sheetFields[7].Descriptor()
+	// sheet.DefaultTotalCashin holds the default value on creation for the total_cashin field.
+	sheet.DefaultTotalCashin = sheetDescTotalCashin.Default.(int64)
+	// sheetDescTotalCashout is the schema descriptor for total_cashout field.
+	sheetDescTotalCashout := sheetFields[8].Descriptor()
+	// sheet.DefaultTotalCashout holds the default value on creation for the total_cashout field.
+	sheet.DefaultTotalCashout = sheetDescTotalCashout.Default.(int64)
 }

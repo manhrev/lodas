@@ -84,6 +84,48 @@ func (sc *SheetCreate) SetNillableRatio(f *float64) *SheetCreate {
 	return sc
 }
 
+// SetWinRatio sets the "win_ratio" field.
+func (sc *SheetCreate) SetWinRatio(f float64) *SheetCreate {
+	sc.mutation.SetWinRatio(f)
+	return sc
+}
+
+// SetNillableWinRatio sets the "win_ratio" field if the given value is not nil.
+func (sc *SheetCreate) SetNillableWinRatio(f *float64) *SheetCreate {
+	if f != nil {
+		sc.SetWinRatio(*f)
+	}
+	return sc
+}
+
+// SetTotalCashin sets the "total_cashin" field.
+func (sc *SheetCreate) SetTotalCashin(i int64) *SheetCreate {
+	sc.mutation.SetTotalCashin(i)
+	return sc
+}
+
+// SetNillableTotalCashin sets the "total_cashin" field if the given value is not nil.
+func (sc *SheetCreate) SetNillableTotalCashin(i *int64) *SheetCreate {
+	if i != nil {
+		sc.SetTotalCashin(*i)
+	}
+	return sc
+}
+
+// SetTotalCashout sets the "total_cashout" field.
+func (sc *SheetCreate) SetTotalCashout(i int64) *SheetCreate {
+	sc.mutation.SetTotalCashout(i)
+	return sc
+}
+
+// SetNillableTotalCashout sets the "total_cashout" field if the given value is not nil.
+func (sc *SheetCreate) SetNillableTotalCashout(i *int64) *SheetCreate {
+	if i != nil {
+		sc.SetTotalCashout(*i)
+	}
+	return sc
+}
+
 // SetResultTime sets the "result_time" field.
 func (sc *SheetCreate) SetResultTime(t time.Time) *SheetCreate {
 	sc.mutation.SetResultTime(t)
@@ -199,6 +241,18 @@ func (sc *SheetCreate) defaults() {
 		v := sheet.DefaultRatio
 		sc.mutation.SetRatio(v)
 	}
+	if _, ok := sc.mutation.WinRatio(); !ok {
+		v := sheet.DefaultWinRatio
+		sc.mutation.SetWinRatio(v)
+	}
+	if _, ok := sc.mutation.TotalCashin(); !ok {
+		v := sheet.DefaultTotalCashin
+		sc.mutation.SetTotalCashin(v)
+	}
+	if _, ok := sc.mutation.TotalCashout(); !ok {
+		v := sheet.DefaultTotalCashout
+		sc.mutation.SetTotalCashout(v)
+	}
 }
 
 // check runs all checks and user-defined validators on the builder.
@@ -217,6 +271,15 @@ func (sc *SheetCreate) check() error {
 	}
 	if _, ok := sc.mutation.Ratio(); !ok {
 		return &ValidationError{Name: "ratio", err: errors.New(`ent: missing required field "Sheet.ratio"`)}
+	}
+	if _, ok := sc.mutation.WinRatio(); !ok {
+		return &ValidationError{Name: "win_ratio", err: errors.New(`ent: missing required field "Sheet.win_ratio"`)}
+	}
+	if _, ok := sc.mutation.TotalCashin(); !ok {
+		return &ValidationError{Name: "total_cashin", err: errors.New(`ent: missing required field "Sheet.total_cashin"`)}
+	}
+	if _, ok := sc.mutation.TotalCashout(); !ok {
+		return &ValidationError{Name: "total_cashout", err: errors.New(`ent: missing required field "Sheet.total_cashout"`)}
 	}
 	if _, ok := sc.mutation.ResultTime(); !ok {
 		return &ValidationError{Name: "result_time", err: errors.New(`ent: missing required field "Sheet.result_time"`)}
@@ -287,6 +350,18 @@ func (sc *SheetCreate) createSpec() (*Sheet, *sqlgraph.CreateSpec) {
 	if value, ok := sc.mutation.Ratio(); ok {
 		_spec.SetField(sheet.FieldRatio, field.TypeFloat64, value)
 		_node.Ratio = value
+	}
+	if value, ok := sc.mutation.WinRatio(); ok {
+		_spec.SetField(sheet.FieldWinRatio, field.TypeFloat64, value)
+		_node.WinRatio = value
+	}
+	if value, ok := sc.mutation.TotalCashin(); ok {
+		_spec.SetField(sheet.FieldTotalCashin, field.TypeInt64, value)
+		_node.TotalCashin = value
+	}
+	if value, ok := sc.mutation.TotalCashout(); ok {
+		_spec.SetField(sheet.FieldTotalCashout, field.TypeInt64, value)
+		_node.TotalCashout = value
 	}
 	if value, ok := sc.mutation.ResultTime(); ok {
 		_spec.SetField(sheet.FieldResultTime, field.TypeTime, value)

@@ -17,6 +17,12 @@ const (
 	FieldProvince = "province"
 	// FieldRatio holds the string denoting the ratio field in the database.
 	FieldRatio = "ratio"
+	// FieldWinRatio holds the string denoting the win_ratio field in the database.
+	FieldWinRatio = "win_ratio"
+	// FieldTotalCashin holds the string denoting the total_cashin field in the database.
+	FieldTotalCashin = "total_cashin"
+	// FieldTotalCashout holds the string denoting the total_cashout field in the database.
+	FieldTotalCashout = "total_cashout"
 	// FieldResultTime holds the string denoting the result_time field in the database.
 	FieldResultTime = "result_time"
 	// FieldCreatedTime holds the string denoting the created_time field in the database.
@@ -55,6 +61,9 @@ var Columns = []string{
 	FieldArea,
 	FieldProvince,
 	FieldRatio,
+	FieldWinRatio,
+	FieldTotalCashin,
+	FieldTotalCashout,
 	FieldResultTime,
 	FieldCreatedTime,
 	FieldUpdatedTime,
@@ -91,4 +100,10 @@ var (
 	DefaultProvince int64
 	// DefaultRatio holds the default value on creation for the "ratio" field.
 	DefaultRatio float64
+	// DefaultWinRatio holds the default value on creation for the "win_ratio" field.
+	DefaultWinRatio float64
+	// DefaultTotalCashin holds the default value on creation for the "total_cashin" field.
+	DefaultTotalCashin int64
+	// DefaultTotalCashout holds the default value on creation for the "total_cashout" field.
+	DefaultTotalCashout int64
 )
