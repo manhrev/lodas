@@ -2,6 +2,7 @@ package sheet
 
 import (
 	"context"
+	"log"
 	"time"
 
 	"github.com/manhrev/lodas/backend/lodas/internal/status"
@@ -10,7 +11,9 @@ import (
 	"github.com/manhrev/lodas/backend/lodas/pkg/code"
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent"
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent/betsetting"
+	"github.com/manhrev/lodas/backend/lodas/pkg/ent/record"
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent/sheet"
+
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -22,6 +25,7 @@ type Sheet interface {
 		area lodas_pb.Area,
 		province lodas_pb.Province,
 		ratio float64,
+		win_ratio float64,
 		result_time *timestamppb.Timestamp,
 	) (*ent.Sheet, error)
 
@@ -46,6 +50,7 @@ type Sheet interface {
 		area lodas_pb.Area,
 		province lodas_pb.Province,
 		ratio float64,
+		win_ratio float64,
 		result_time *timestamppb.Timestamp,
 		status int64,
 	) error
@@ -80,6 +85,7 @@ func (s *sheetImpl) Create(
 	area lodas_pb.Area,
 	province lodas_pb.Province,
 	ratio float64,
+	win_ratio float64,
 	result_time *timestamppb.Timestamp,
 ) (*ent.Sheet, error) {
 	newBetSettings, err := s.entClient.BetSetting.Query().Where(betsetting.UserIDEQ(userId)).Order(ent.Desc(betsetting.FieldCreatedTime)).All(ctx)
@@ -94,6 +100,7 @@ func (s *sheetImpl) Create(
 		SetArea(int64(area)).
 		SetProvince(int64(province)).
 		SetRatio(float64(ratio)).
+		SetWinRatio(float64(win_ratio)).
 		SetResultTime(result_time.AsTime()).
 		SetBetSetting(newBetSetting).
 		SetCreatedTime(time.Now()).
@@ -181,6 +188,7 @@ func (s *sheetImpl) Update(
 	area lodas_pb.Area,
 	province lodas_pb.Province,
 	ratio float64,
+	win_ratio float64,
 	result_time *timestamppb.Timestamp,
 	sheet_status int64,
 ) error {
@@ -189,6 +197,7 @@ func (s *sheetImpl) Update(
 		SetArea(int64(area)).
 		SetProvince(int64(province)).
 		SetRatio(float64(ratio)).
+		SetWinRatio(float64(win_ratio)).
 		SetUpdatedTime(time.Now()).
 		SetResultTime(result_time.AsTime()).
 		SetStatus(sheet_status).
@@ -209,15 +218,20 @@ func (s *sheetImpl) Delete(
 	userId int64,
 	ids []int64,
 ) error {
-	numDeleted, err := s.entClient.Sheet.
+	// Delete all records belong to sheets
+	_, err := s.entClient.Record.Delete().Where(record.HasSheetWith(sheet.IDIn(ids...))).Exec(ctx)
+	if err != nil {
+		log.Printf("Error delete sheet - delete record: %v", err)
+		return status.Internal(err.Error())
+	}
+	// Delete sheets
+	_, err = s.entClient.Sheet.
 		Delete().
 		Where(sheet.IDIn(ids...), sheet.UserIDEQ(userId)).
 		Exec(ctx)
 	if err != nil {
+		log.Printf("Error delete sheet - delete sheet: %v", err)
 		return status.Internal(err.Error())
-	}
-	if numDeleted == 0 {
-		return status.Internal("Can't delete sheet")
 	}
 	return nil
 }
@@ -227,15 +241,16 @@ func (s *sheetImpl) Submit(
 	userId int64,
 	id int64,
 ) error {
-	numSubmited, err := s.entClient.Sheet.Update().
-		SetStatus(int64(lodas_pb.SheetStatus_SHEET_STATUS_SUBMITTED)).
-		Where(sheet.UserIDEQ(userId), sheet.IDEQ(id)).
-		Save(ctx)
+	sheetObj, err := s.entClient.Sheet.Query().Where(sheet.IDEQ(id), sheet.UserIDEQ(userId)).Only(ctx)
 	if err != nil {
+		log.Printf("Error Submit sheet - not found sheet: %v", err)
 		return status.Internal(err.Error())
 	}
-	if numSubmited == 0 {
-		return status.Internal("Can't update sheet status")
+	err = processCashIn(s.entClient, sheetObj)
+	if err != nil {
+		log.Printf("Error Submit sheet - processCashIn: %v", err)
+		return status.Internal(err.Error())
 	}
+
 	return nil
 }

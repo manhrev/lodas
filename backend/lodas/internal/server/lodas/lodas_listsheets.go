@@ -45,15 +45,18 @@ func transformEntSheetListToSheetList(entSheetList []*ent.Sheet) []*lodas_pb.She
 	sheetList := []*lodas_pb.SheetInfo{}
 	for _, sheetEnt := range entSheetList {
 		sheetInfo := &lodas_pb.SheetInfo{
-			Id:          sheetEnt.ID,
-			Status:      lodas_pb.SheetStatus(sheetEnt.Status),
-			Name:        sheetEnt.Name,
-			Area:        lodas_pb.Area(sheetEnt.Area),
-			Province:    lodas_pb.Province(sheetEnt.Province),
-			Ratio:       sheetEnt.Ratio,
-			ResultTime:  timestamppb.New(sheetEnt.ResultTime),
-			CreatedTime: timestamppb.New(sheetEnt.CreatedTime),
-			UpdatedTime: timestamppb.New(sheetEnt.UpdatedTime),
+			Id:           sheetEnt.ID,
+			Status:       lodas_pb.SheetStatus(sheetEnt.Status),
+			Name:         sheetEnt.Name,
+			Area:         lodas_pb.Area(sheetEnt.Area),
+			Province:     lodas_pb.Province(sheetEnt.Province),
+			Ratio:        sheetEnt.Ratio,
+			WinRatio:     sheetEnt.WinRatio,
+			TotalCashin:  sheetEnt.TotalCashin,
+			TotalCashout: sheetEnt.TotalCashout,
+			ResultTime:   timestamppb.New(sheetEnt.ResultTime),
+			CreatedTime:  timestamppb.New(sheetEnt.CreatedTime),
+			UpdatedTime:  timestamppb.New(sheetEnt.UpdatedTime),
 		}
 		sheetList = append(sheetList, sheetInfo)
 	}

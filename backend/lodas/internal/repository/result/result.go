@@ -76,7 +76,7 @@ func (r *resultImpl) CheckResultDaily(
 		).Only(ctx)
 		if err != nil {
 			log.Printf("Error CheckResultDaily get BetSetting: %v", err)
-			return status.Internal(err.Error())
+			// return status.Internal(err.Error())
 		}
 		startTime, endTime := getTimeRange(&sheetObj.ResultTime, &sheetObj.ResultTime)
 		// get resultObj which has the same province and result time with sheetObj
@@ -84,12 +84,12 @@ func (r *resultImpl) CheckResultDaily(
 		resultObj, err := r.entClient.Result.Query().Where(result.ProvinceEQ(sheetObj.Province), result.CreatedTimeGTE(startTime), result.CreatedTimeLTE(endTime), result.ProvinceEQ(sheetObj.Province)).Only(ctx)
 		if err != nil {
 			log.Printf("Error CheckResultDaily get result: %v", err)
-			return status.Internal(err.Error())
+			// return status.Internal(err.Error())
 		}
 		err = checkResult(r.entClient, sheetObj, resultObj, betSettingObj)
 		if err != nil {
 			log.Printf("Error CheckResultDaily check result: %v", err)
-			return status.Internal(err.Error())
+			// return status.Internal(err.Error())
 		}
 	}
 

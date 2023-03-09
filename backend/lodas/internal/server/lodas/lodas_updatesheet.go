@@ -24,6 +24,7 @@ func (s *lodasServer) UpdateSheet(
 		request.GetArea(),
 		request.GetProvince(),
 		request.GetRatio(),
+		request.GetWinRatio(),
 		request.GetResultTime(),
 		request.GetStatus(),
 	)
