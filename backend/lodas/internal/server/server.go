@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 	lodas "github.com/manhrev/lodas/backend/lodas/internal/server/lodas"
@@ -14,12 +15,14 @@ import (
 	"google.golang.org/grpc"
 )
 
-const (
-	db_user_name string = "root"
-	db_password  string = "password@1"
-	db_domain    string = "lodas_db"
-	db_port      string = "3306"
-	db_name      string = "lodas"
+var (
+	db_user_name string = os.Getenv("DB_USERNAME")
+	db_password  string = os.Getenv("DB_PASSWORD")
+	db_domain    string = os.Getenv("DB_HOST")
+	db_port      string = os.Getenv("DB_PORT")
+	db_name      string = os.Getenv("DB_NAME")
+
+	listen_port string = os.Getenv("LISTEN_PORT")
 )
 
 func Run() {
@@ -54,7 +57,7 @@ func Serve(server *grpc.Server) {
 	// register main and other server servers
 	pb.RegisterLodasServer(server, lodas.NewServer(entClient))
 
-	lis, err := net.Listen("tcp", "0.0.0.0:8080")
+	lis, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:%s", listen_port))
 	if err != nil {
 		log.Fatalf("error while create listen: %v", err)
 	}

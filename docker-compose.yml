@@ -13,21 +13,39 @@ services:
   lodas:
     build:
       context: backend/lodas
-      dockerfile: build/Dockerfile
+      dockerfile: Dockerfile
     container_name: lodas-service
     depends_on:
       - lodas_db
+    environment:
+      LISTEN_PORT: 8080
+      DB_USERNAME: root
+      DB_PASSWORD: password@1
+      DB_HOST: lodas_db
+      DB_PORT: 3306
+      DB_NAME: lodas
 
   auth:
     build:
       context: backend/auth
-      dockerfile: build/Dockerfile
+      dockerfile: Dockerfile
     container_name: auth-lodas
     volumes:
       - ./backend/auth:/app
     depends_on:
       - lodas_db
       - redis
+    environment:
+      LISTEN_PORT: 8080
+      DB_USERNAME: root
+      DB_PASSWORD: password@1
+      DB_HOST: lodas_db
+      DB_PORT: 3306
+      DB_NAME: lodas
+      CACHE_HOST: redis
+      CACHE_PORT: 6379
+      CACHE_PASSWORD: ""
+      CACHE_DB: 0
 
   lodas_db:
     image: mysql
