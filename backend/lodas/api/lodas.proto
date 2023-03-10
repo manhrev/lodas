@@ -26,7 +26,8 @@ message CreateSheetRequest {
     Area area = 2;
     Province province = 3;
     double ratio = 4;
-    google.protobuf.Timestamp result_time = 5;
+    double win_ratio = 5;
+    google.protobuf.Timestamp result_time = 6;
 }
 
 message CreateSheetReply {
@@ -81,8 +82,9 @@ message UpdateSheetRequest {
     Area area=3;
     Province province =4; 
     double ratio = 5;
-    google.protobuf.Timestamp result_time = 6;
-    int64 status = 7;
+    double win_ratio = 6;
+    google.protobuf.Timestamp result_time = 7;
+    int64 status = 8;
 }
 
 message UpdateSheetReply {
@@ -123,9 +125,12 @@ message SheetInfo {
     Area area = 4;
     Province province = 5;
     double ratio = 6;
-    google.protobuf.Timestamp result_time = 7;
-    google.protobuf.Timestamp created_time = 8;
-    google.protobuf.Timestamp updated_time = 9;
+    double win_ratio = 7;
+    int64 total_cashin = 8;
+    int64 total_cashout = 9;
+    google.protobuf.Timestamp result_time = 10;
+    google.protobuf.Timestamp created_time = 11;
+    google.protobuf.Timestamp updated_time = 12;
 
 }
 

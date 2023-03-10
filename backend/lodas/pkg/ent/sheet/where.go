@@ -80,6 +80,21 @@ func Ratio(v float64) predicate.Sheet {
 	return predicate.Sheet(sql.FieldEQ(FieldRatio, v))
 }
 
+// WinRatio applies equality check predicate on the "win_ratio" field. It's identical to WinRatioEQ.
+func WinRatio(v float64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldEQ(FieldWinRatio, v))
+}
+
+// TotalCashin applies equality check predicate on the "total_cashin" field. It's identical to TotalCashinEQ.
+func TotalCashin(v int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldEQ(FieldTotalCashin, v))
+}
+
+// TotalCashout applies equality check predicate on the "total_cashout" field. It's identical to TotalCashoutEQ.
+func TotalCashout(v int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldEQ(FieldTotalCashout, v))
+}
+
 // ResultTime applies equality check predicate on the "result_time" field. It's identical to ResultTimeEQ.
 func ResultTime(v time.Time) predicate.Sheet {
 	return predicate.Sheet(sql.FieldEQ(FieldResultTime, v))
@@ -323,6 +338,126 @@ func RatioLT(v float64) predicate.Sheet {
 // RatioLTE applies the LTE predicate on the "ratio" field.
 func RatioLTE(v float64) predicate.Sheet {
 	return predicate.Sheet(sql.FieldLTE(FieldRatio, v))
+}
+
+// WinRatioEQ applies the EQ predicate on the "win_ratio" field.
+func WinRatioEQ(v float64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldEQ(FieldWinRatio, v))
+}
+
+// WinRatioNEQ applies the NEQ predicate on the "win_ratio" field.
+func WinRatioNEQ(v float64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldNEQ(FieldWinRatio, v))
+}
+
+// WinRatioIn applies the In predicate on the "win_ratio" field.
+func WinRatioIn(vs ...float64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldIn(FieldWinRatio, vs...))
+}
+
+// WinRatioNotIn applies the NotIn predicate on the "win_ratio" field.
+func WinRatioNotIn(vs ...float64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldNotIn(FieldWinRatio, vs...))
+}
+
+// WinRatioGT applies the GT predicate on the "win_ratio" field.
+func WinRatioGT(v float64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldGT(FieldWinRatio, v))
+}
+
+// WinRatioGTE applies the GTE predicate on the "win_ratio" field.
+func WinRatioGTE(v float64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldGTE(FieldWinRatio, v))
+}
+
+// WinRatioLT applies the LT predicate on the "win_ratio" field.
+func WinRatioLT(v float64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldLT(FieldWinRatio, v))
+}
+
+// WinRatioLTE applies the LTE predicate on the "win_ratio" field.
+func WinRatioLTE(v float64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldLTE(FieldWinRatio, v))
+}
+
+// TotalCashinEQ applies the EQ predicate on the "total_cashin" field.
+func TotalCashinEQ(v int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldEQ(FieldTotalCashin, v))
+}
+
+// TotalCashinNEQ applies the NEQ predicate on the "total_cashin" field.
+func TotalCashinNEQ(v int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldNEQ(FieldTotalCashin, v))
+}
+
+// TotalCashinIn applies the In predicate on the "total_cashin" field.
+func TotalCashinIn(vs ...int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldIn(FieldTotalCashin, vs...))
+}
+
+// TotalCashinNotIn applies the NotIn predicate on the "total_cashin" field.
+func TotalCashinNotIn(vs ...int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldNotIn(FieldTotalCashin, vs...))
+}
+
+// TotalCashinGT applies the GT predicate on the "total_cashin" field.
+func TotalCashinGT(v int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldGT(FieldTotalCashin, v))
+}
+
+// TotalCashinGTE applies the GTE predicate on the "total_cashin" field.
+func TotalCashinGTE(v int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldGTE(FieldTotalCashin, v))
+}
+
+// TotalCashinLT applies the LT predicate on the "total_cashin" field.
+func TotalCashinLT(v int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldLT(FieldTotalCashin, v))
+}
+
+// TotalCashinLTE applies the LTE predicate on the "total_cashin" field.
+func TotalCashinLTE(v int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldLTE(FieldTotalCashin, v))
+}
+
+// TotalCashoutEQ applies the EQ predicate on the "total_cashout" field.
+func TotalCashoutEQ(v int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldEQ(FieldTotalCashout, v))
+}
+
+// TotalCashoutNEQ applies the NEQ predicate on the "total_cashout" field.
+func TotalCashoutNEQ(v int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldNEQ(FieldTotalCashout, v))
+}
+
+// TotalCashoutIn applies the In predicate on the "total_cashout" field.
+func TotalCashoutIn(vs ...int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldIn(FieldTotalCashout, vs...))
+}
+
+// TotalCashoutNotIn applies the NotIn predicate on the "total_cashout" field.
+func TotalCashoutNotIn(vs ...int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldNotIn(FieldTotalCashout, vs...))
+}
+
+// TotalCashoutGT applies the GT predicate on the "total_cashout" field.
+func TotalCashoutGT(v int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldGT(FieldTotalCashout, v))
+}
+
+// TotalCashoutGTE applies the GTE predicate on the "total_cashout" field.
+func TotalCashoutGTE(v int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldGTE(FieldTotalCashout, v))
+}
+
+// TotalCashoutLT applies the LT predicate on the "total_cashout" field.
+func TotalCashoutLT(v int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldLT(FieldTotalCashout, v))
+}
+
+// TotalCashoutLTE applies the LTE predicate on the "total_cashout" field.
+func TotalCashoutLTE(v int64) predicate.Sheet {
+	return predicate.Sheet(sql.FieldLTE(FieldTotalCashout, v))
 }
 
 // ResultTimeEQ applies the EQ predicate on the "result_time" field.

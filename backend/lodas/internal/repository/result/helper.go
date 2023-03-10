@@ -25,6 +25,7 @@ func getTimeRange(start *time.Time, end *time.Time) (time.Time, time.Time) {
 	}
 	return startTime, endTime
 }
+
 func checkResult(entClient *ent.Client, sheetObj *ent.Sheet, resultObj *ent.Result, betSettingObj *ent.BetSetting) error {
 	if sheetObj != nil && resultObj != nil && betSettingObj != nil {
 		doubleDigitResult := schema.PrizeMap{}
@@ -173,12 +174,12 @@ func checkResult(entClient *ent.Client, sheetObj *ent.Sheet, resultObj *ent.Resu
 					if len(valueArray) > 1 {
 						// if A number have duplicate less than B number, A number will be count
 						// {56:2, 57:3, 58:3} => count = 2+2+3 = 7
-						for i := 0; i < len(valueArray); i++ {
+						for i := 0; i < len(valueArray)-1; i++ {
 							for j := i + 1; j < len(valueArray); j++ {
-								if valueArray[i] < valueArray[j] {
+								if valueArray[i] <= valueArray[j] {
 									count = count + valueArray[i]
 								} else {
-									count = count + valueArray[i]
+									count = count + valueArray[j]
 								}
 							}
 						}
@@ -192,13 +193,14 @@ func checkResult(entClient *ent.Client, sheetObj *ent.Sheet, resultObj *ent.Resu
 					fmt.Println("cashOut: ", cashOut)
 				}
 			}
+			// Update sheet status
+			err = entClient.Sheet.UpdateOneID(sheetObj.ID).SetStatus(int64(lodas.SheetStatus_SHEET_STATUS_GOT_RESULT)).Exec(context.Background())
+			if err != nil {
+				return err
+			}
 
 		}
 
-		err := entClient.Sheet.UpdateOneID(sheetObj.ID).SetStatus(int64(lodas.SheetStatus_SHEET_STATUS_GOT_RESULT)).Exec(context.Background())
-		if err != nil {
-			return err
-		}
 	}
 	return nil
 }

@@ -24,6 +24,7 @@ func (s *lodasServer) CreateSheet(
 		request.GetArea(),
 		request.GetProvince(),
 		request.GetRatio(),
+		request.GetWinRatio(),
 		request.GetResultTime())
 	if err != nil {
 		return nil, err

@@ -27,6 +27,12 @@ type Sheet struct {
 	Province int64 `json:"province,omitempty"`
 	// Ratio holds the value of the "ratio" field.
 	Ratio float64 `json:"ratio,omitempty"`
+	// WinRatio holds the value of the "win_ratio" field.
+	WinRatio float64 `json:"win_ratio,omitempty"`
+	// TotalCashin holds the value of the "total_cashin" field.
+	TotalCashin int64 `json:"total_cashin,omitempty"`
+	// TotalCashout holds the value of the "total_cashout" field.
+	TotalCashout int64 `json:"total_cashout,omitempty"`
 	// ResultTime holds the value of the "result_time" field.
 	ResultTime time.Time `json:"result_time,omitempty"`
 	// CreatedTime holds the value of the "created_time" field.
@@ -79,9 +85,9 @@ func (*Sheet) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case sheet.FieldRatio:
+		case sheet.FieldRatio, sheet.FieldWinRatio:
 			values[i] = new(sql.NullFloat64)
-		case sheet.FieldID, sheet.FieldStatus, sheet.FieldArea, sheet.FieldProvince, sheet.FieldUserID:
+		case sheet.FieldID, sheet.FieldStatus, sheet.FieldArea, sheet.FieldProvince, sheet.FieldTotalCashin, sheet.FieldTotalCashout, sheet.FieldUserID:
 			values[i] = new(sql.NullInt64)
 		case sheet.FieldName:
 			values[i] = new(sql.NullString)
@@ -139,6 +145,24 @@ func (s *Sheet) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ratio", values[i])
 			} else if value.Valid {
 				s.Ratio = value.Float64
+			}
+		case sheet.FieldWinRatio:
+			if value, ok := values[i].(*sql.NullFloat64); !ok {
+				return fmt.Errorf("unexpected type %T for field win_ratio", values[i])
+			} else if value.Valid {
+				s.WinRatio = value.Float64
+			}
+		case sheet.FieldTotalCashin:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field total_cashin", values[i])
+			} else if value.Valid {
+				s.TotalCashin = value.Int64
+			}
+		case sheet.FieldTotalCashout:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field total_cashout", values[i])
+			} else if value.Valid {
+				s.TotalCashout = value.Int64
 			}
 		case sheet.FieldResultTime:
 			if value, ok := values[i].(*sql.NullTime); !ok {
@@ -223,6 +247,15 @@ func (s *Sheet) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("ratio=")
 	builder.WriteString(fmt.Sprintf("%v", s.Ratio))
+	builder.WriteString(", ")
+	builder.WriteString("win_ratio=")
+	builder.WriteString(fmt.Sprintf("%v", s.WinRatio))
+	builder.WriteString(", ")
+	builder.WriteString("total_cashin=")
+	builder.WriteString(fmt.Sprintf("%v", s.TotalCashin))
+	builder.WriteString(", ")
+	builder.WriteString("total_cashout=")
+	builder.WriteString(fmt.Sprintf("%v", s.TotalCashout))
 	builder.WriteString(", ")
 	builder.WriteString("result_time=")
 	builder.WriteString(s.ResultTime.Format(time.ANSIC))

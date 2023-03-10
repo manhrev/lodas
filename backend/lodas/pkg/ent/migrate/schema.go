@@ -69,6 +69,9 @@ var (
 		{Name: "area", Type: field.TypeInt64, Default: 0},
 		{Name: "province", Type: field.TypeInt64, Default: 0},
 		{Name: "ratio", Type: field.TypeFloat64, Default: 0},
+		{Name: "win_ratio", Type: field.TypeFloat64, Default: 1},
+		{Name: "total_cashin", Type: field.TypeInt64, Default: 0},
+		{Name: "total_cashout", Type: field.TypeInt64, Default: 0},
 		{Name: "result_time", Type: field.TypeTime},
 		{Name: "created_time", Type: field.TypeTime},
 		{Name: "updated_time", Type: field.TypeTime},
@@ -83,7 +86,7 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "sheets_bet_settings_sheets",
-				Columns:    []*schema.Column{SheetsColumns[10]},
+				Columns:    []*schema.Column{SheetsColumns[13]},
 				RefColumns: []*schema.Column{BetSettingsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
