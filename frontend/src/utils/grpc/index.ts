@@ -20,7 +20,7 @@ const onAuthError = (error: any, serviceName: any) => {
   // error?.code && alert(error.code);
 };
 
-const HOST = `http://localhost:8080`;
+const HOST = `http://34.87.27.159:8080`;
 
 const authConfig = {
   hostname: HOST,

@@ -17,7 +17,6 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import moment from "moment";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import { useAppDispatch } from "src/redux/store";
 import { lodasClient } from "src/utils/grpc";
 import { toast } from "react-toastify";
 
@@ -26,26 +25,27 @@ interface CreateDialogProps {
 }
 const CreateDialog = ({ fetchSheets }: CreateDialogProps) => {
   const [open, setOpen] = useState(false);
-  const dispatch = useAppDispatch();
+
   // form values
   const [name, setName] = useState<string>(""); // sheet name
   const [mien, setMien] = useState<string>(""); // "bac" | "trung"| "unspecified"
   const [tinh, setTinh] = useState<string>(""); // province enum str
   const [resultTime, setResultTime] = useState<moment.Moment | null>(null);
   const [ratio, setRatio] = useState<string>("");
+  const [ratioChia, setRatioChia] = useState<string>("");
 
   const handleCreateSheet = async () => {
     if (name == "" || mien == "" || tinh == "" || ratio == "" || !resultTime) {
       toast.error("Vui lòng nhập đầy đủ thông tin");
       return;
     }
-    console.log(resultTime.unix());
     const { error } = await lodasClient.createSheet({
       name: name,
       area: mien === "bac" ? Area.AREA_BAC : Area.AREA_TRUNG,
       province: provinceStrMap[tinh][0],
       ratio: Number(ratio),
       resultTime: { seconds: resultTime.unix(), nanos: 0 },
+      winRatio: Number(ratioChia),
     });
     if (error) {
       toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau");
@@ -64,6 +64,7 @@ const CreateDialog = ({ fetchSheets }: CreateDialogProps) => {
     setResultTime(null);
     setRatio("");
     setOpen(false);
+    setRatioChia("");
   };
   const handleResultTimeChange = (date: moment.Moment | null) => {
     setResultTime(date);
@@ -86,6 +87,9 @@ const CreateDialog = ({ fetchSheets }: CreateDialogProps) => {
   };
   const handleTinhChange = (event: any) => {
     setTinh(event.target.value);
+  };
+  const handleRatioChiaChange = (event: any) => {
+    setRatioChia(event.target.value);
   };
 
   return (
@@ -130,6 +134,7 @@ const CreateDialog = ({ fetchSheets }: CreateDialogProps) => {
             value={tinh}
             label="Tỉnh"
             onChange={handleTinhChange}
+            disabled={mien == ""}
             fullWidth
             select
           >
@@ -162,6 +167,15 @@ const CreateDialog = ({ fetchSheets }: CreateDialogProps) => {
               renderInput={(params) => <TextField {...params} fullWidth />}
             />
           </Box>
+          <TextField
+            sx={{ mt: 1 }}
+            id="ratio-c"
+            label="Tỉ lệ chia"
+            type="number"
+            value={ratioChia}
+            onChange={handleRatioChiaChange}
+            fullWidth
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClearSheet} variant="outlined">

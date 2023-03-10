@@ -16,6 +16,9 @@ export class CreateSheetRequest extends jspb.Message {
   getRatio(): number;
   setRatio(value: number): CreateSheetRequest;
 
+  getWinRatio(): number;
+  setWinRatio(value: number): CreateSheetRequest;
+
   getResultTime(): google_protobuf_timestamp_pb.Timestamp | undefined;
   setResultTime(value?: google_protobuf_timestamp_pb.Timestamp): CreateSheetRequest;
   hasResultTime(): boolean;
@@ -35,6 +38,7 @@ export namespace CreateSheetRequest {
     area: Area,
     province: Province,
     ratio: number,
+    winRatio: number,
     resultTime?: google_protobuf_timestamp_pb.Timestamp.AsObject,
   }
 }
@@ -103,6 +107,9 @@ export class UpdateSheetRequest extends jspb.Message {
   getRatio(): number;
   setRatio(value: number): UpdateSheetRequest;
 
+  getWinRatio(): number;
+  setWinRatio(value: number): UpdateSheetRequest;
+
   getResultTime(): google_protobuf_timestamp_pb.Timestamp | undefined;
   setResultTime(value?: google_protobuf_timestamp_pb.Timestamp): UpdateSheetRequest;
   hasResultTime(): boolean;
@@ -126,6 +133,7 @@ export namespace UpdateSheetRequest {
     area: Area,
     province: Province,
     ratio: number,
+    winRatio: number,
     resultTime?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     status: number,
   }
@@ -272,6 +280,15 @@ export class SheetInfo extends jspb.Message {
   getRatio(): number;
   setRatio(value: number): SheetInfo;
 
+  getWinRatio(): number;
+  setWinRatio(value: number): SheetInfo;
+
+  getTotalCashin(): number;
+  setTotalCashin(value: number): SheetInfo;
+
+  getTotalCashout(): number;
+  setTotalCashout(value: number): SheetInfo;
+
   getResultTime(): google_protobuf_timestamp_pb.Timestamp | undefined;
   setResultTime(value?: google_protobuf_timestamp_pb.Timestamp): SheetInfo;
   hasResultTime(): boolean;
@@ -303,6 +320,9 @@ export namespace SheetInfo {
     area: Area,
     province: Province,
     ratio: number,
+    winRatio: number,
+    totalCashin: number,
+    totalCashout: number,
     resultTime?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     createdTime?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     updatedTime?: google_protobuf_timestamp_pb.Timestamp.AsObject,

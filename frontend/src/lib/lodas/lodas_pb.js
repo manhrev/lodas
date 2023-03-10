@@ -572,6 +572,7 @@ proto.lodas.CreateSheetRequest.toObject = function(includeInstance, msg) {
     area: jspb.Message.getFieldWithDefault(msg, 2, 0),
     province: jspb.Message.getFieldWithDefault(msg, 3, 0),
     ratio: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0),
+    winRatio: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
     resultTime: (f = msg.getResultTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
@@ -626,6 +627,10 @@ proto.lodas.CreateSheetRequest.deserializeBinaryFromReader = function(msg, reade
       msg.setRatio(value);
       break;
     case 5:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setWinRatio(value);
+      break;
+    case 6:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setResultTime(value);
@@ -687,10 +692,17 @@ proto.lodas.CreateSheetRequest.serializeBinaryToWriter = function(message, write
       f
     );
   }
+  f = message.getWinRatio();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      5,
+      f
+    );
+  }
   f = message.getResultTime();
   if (f != null) {
     writer.writeMessage(
-      5,
+      6,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
@@ -771,12 +783,30 @@ proto.lodas.CreateSheetRequest.prototype.setRatio = function(value) {
 
 
 /**
- * optional google.protobuf.Timestamp result_time = 5;
+ * optional double win_ratio = 5;
+ * @return {number}
+ */
+proto.lodas.CreateSheetRequest.prototype.getWinRatio = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 5, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.lodas.CreateSheetRequest} returns this
+ */
+proto.lodas.CreateSheetRequest.prototype.setWinRatio = function(value) {
+  return jspb.Message.setProto3FloatField(this, 5, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp result_time = 6;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.lodas.CreateSheetRequest.prototype.getResultTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 6));
 };
 
 
@@ -785,7 +815,7 @@ proto.lodas.CreateSheetRequest.prototype.getResultTime = function() {
  * @return {!proto.lodas.CreateSheetRequest} returns this
 */
 proto.lodas.CreateSheetRequest.prototype.setResultTime = function(value) {
-  return jspb.Message.setWrapperField(this, 5, value);
+  return jspb.Message.setWrapperField(this, 6, value);
 };
 
 
@@ -803,7 +833,7 @@ proto.lodas.CreateSheetRequest.prototype.clearResultTime = function() {
  * @return {boolean}
  */
 proto.lodas.CreateSheetRequest.prototype.hasResultTime = function() {
-  return jspb.Message.getField(this, 5) != null;
+  return jspb.Message.getField(this, 6) != null;
 };
 
 
@@ -1204,8 +1234,9 @@ proto.lodas.UpdateSheetRequest.toObject = function(includeInstance, msg) {
     area: jspb.Message.getFieldWithDefault(msg, 3, 0),
     province: jspb.Message.getFieldWithDefault(msg, 4, 0),
     ratio: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
+    winRatio: jspb.Message.getFloatingPointFieldWithDefault(msg, 6, 0.0),
     resultTime: (f = msg.getResultTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-    status: jspb.Message.getFieldWithDefault(msg, 7, 0)
+    status: jspb.Message.getFieldWithDefault(msg, 8, 0)
   };
 
   if (includeInstance) {
@@ -1263,11 +1294,15 @@ proto.lodas.UpdateSheetRequest.deserializeBinaryFromReader = function(msg, reade
       msg.setRatio(value);
       break;
     case 6:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setWinRatio(value);
+      break;
+    case 7:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setResultTime(value);
       break;
-    case 7:
+    case 8:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setStatus(value);
       break;
@@ -1335,10 +1370,17 @@ proto.lodas.UpdateSheetRequest.serializeBinaryToWriter = function(message, write
       f
     );
   }
+  f = message.getWinRatio();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      6,
+      f
+    );
+  }
   f = message.getResultTime();
   if (f != null) {
     writer.writeMessage(
-      6,
+      7,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
@@ -1346,7 +1388,7 @@ proto.lodas.UpdateSheetRequest.serializeBinaryToWriter = function(message, write
   f = message.getStatus();
   if (f !== 0) {
     writer.writeInt64(
-      7,
+      8,
       f
     );
   }
@@ -1444,12 +1486,30 @@ proto.lodas.UpdateSheetRequest.prototype.setRatio = function(value) {
 
 
 /**
- * optional google.protobuf.Timestamp result_time = 6;
+ * optional double win_ratio = 6;
+ * @return {number}
+ */
+proto.lodas.UpdateSheetRequest.prototype.getWinRatio = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 6, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.lodas.UpdateSheetRequest} returns this
+ */
+proto.lodas.UpdateSheetRequest.prototype.setWinRatio = function(value) {
+  return jspb.Message.setProto3FloatField(this, 6, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp result_time = 7;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.lodas.UpdateSheetRequest.prototype.getResultTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 6));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
 };
 
 
@@ -1458,7 +1518,7 @@ proto.lodas.UpdateSheetRequest.prototype.getResultTime = function() {
  * @return {!proto.lodas.UpdateSheetRequest} returns this
 */
 proto.lodas.UpdateSheetRequest.prototype.setResultTime = function(value) {
-  return jspb.Message.setWrapperField(this, 6, value);
+  return jspb.Message.setWrapperField(this, 7, value);
 };
 
 
@@ -1476,16 +1536,16 @@ proto.lodas.UpdateSheetRequest.prototype.clearResultTime = function() {
  * @return {boolean}
  */
 proto.lodas.UpdateSheetRequest.prototype.hasResultTime = function() {
-  return jspb.Message.getField(this, 6) != null;
+  return jspb.Message.getField(this, 7) != null;
 };
 
 
 /**
- * optional int64 status = 7;
+ * optional int64 status = 8;
  * @return {number}
  */
 proto.lodas.UpdateSheetRequest.prototype.getStatus = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
 };
 
 
@@ -1494,7 +1554,7 @@ proto.lodas.UpdateSheetRequest.prototype.getStatus = function() {
  * @return {!proto.lodas.UpdateSheetRequest} returns this
  */
 proto.lodas.UpdateSheetRequest.prototype.setStatus = function(value) {
-  return jspb.Message.setProto3IntField(this, 7, value);
+  return jspb.Message.setProto3IntField(this, 8, value);
 };
 
 
@@ -2468,6 +2528,9 @@ proto.lodas.SheetInfo.toObject = function(includeInstance, msg) {
     area: jspb.Message.getFieldWithDefault(msg, 4, 0),
     province: jspb.Message.getFieldWithDefault(msg, 5, 0),
     ratio: jspb.Message.getFloatingPointFieldWithDefault(msg, 6, 0.0),
+    winRatio: jspb.Message.getFloatingPointFieldWithDefault(msg, 7, 0.0),
+    totalCashin: jspb.Message.getFieldWithDefault(msg, 8, 0),
+    totalCashout: jspb.Message.getFieldWithDefault(msg, 9, 0),
     resultTime: (f = msg.getResultTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     createdTime: (f = msg.getCreatedTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     updatedTime: (f = msg.getUpdatedTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
@@ -2532,16 +2595,28 @@ proto.lodas.SheetInfo.deserializeBinaryFromReader = function(msg, reader) {
       msg.setRatio(value);
       break;
     case 7:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setWinRatio(value);
+      break;
+    case 8:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setTotalCashin(value);
+      break;
+    case 9:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setTotalCashout(value);
+      break;
+    case 10:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setResultTime(value);
       break;
-    case 8:
+    case 11:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setCreatedTime(value);
       break;
-    case 9:
+    case 12:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setUpdatedTime(value);
@@ -2617,10 +2692,31 @@ proto.lodas.SheetInfo.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
+  f = message.getWinRatio();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      7,
+      f
+    );
+  }
+  f = message.getTotalCashin();
+  if (f !== 0) {
+    writer.writeInt64(
+      8,
+      f
+    );
+  }
+  f = message.getTotalCashout();
+  if (f !== 0) {
+    writer.writeInt64(
+      9,
+      f
+    );
+  }
   f = message.getResultTime();
   if (f != null) {
     writer.writeMessage(
-      7,
+      10,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
@@ -2628,7 +2724,7 @@ proto.lodas.SheetInfo.serializeBinaryToWriter = function(message, writer) {
   f = message.getCreatedTime();
   if (f != null) {
     writer.writeMessage(
-      8,
+      11,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
@@ -2636,7 +2732,7 @@ proto.lodas.SheetInfo.serializeBinaryToWriter = function(message, writer) {
   f = message.getUpdatedTime();
   if (f != null) {
     writer.writeMessage(
-      9,
+      12,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
@@ -2753,12 +2849,66 @@ proto.lodas.SheetInfo.prototype.setRatio = function(value) {
 
 
 /**
- * optional google.protobuf.Timestamp result_time = 7;
+ * optional double win_ratio = 7;
+ * @return {number}
+ */
+proto.lodas.SheetInfo.prototype.getWinRatio = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 7, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.lodas.SheetInfo} returns this
+ */
+proto.lodas.SheetInfo.prototype.setWinRatio = function(value) {
+  return jspb.Message.setProto3FloatField(this, 7, value);
+};
+
+
+/**
+ * optional int64 total_cashin = 8;
+ * @return {number}
+ */
+proto.lodas.SheetInfo.prototype.getTotalCashin = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.lodas.SheetInfo} returns this
+ */
+proto.lodas.SheetInfo.prototype.setTotalCashin = function(value) {
+  return jspb.Message.setProto3IntField(this, 8, value);
+};
+
+
+/**
+ * optional int64 total_cashout = 9;
+ * @return {number}
+ */
+proto.lodas.SheetInfo.prototype.getTotalCashout = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.lodas.SheetInfo} returns this
+ */
+proto.lodas.SheetInfo.prototype.setTotalCashout = function(value) {
+  return jspb.Message.setProto3IntField(this, 9, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp result_time = 10;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.lodas.SheetInfo.prototype.getResultTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 10));
 };
 
 
@@ -2767,7 +2917,7 @@ proto.lodas.SheetInfo.prototype.getResultTime = function() {
  * @return {!proto.lodas.SheetInfo} returns this
 */
 proto.lodas.SheetInfo.prototype.setResultTime = function(value) {
-  return jspb.Message.setWrapperField(this, 7, value);
+  return jspb.Message.setWrapperField(this, 10, value);
 };
 
 
@@ -2785,17 +2935,17 @@ proto.lodas.SheetInfo.prototype.clearResultTime = function() {
  * @return {boolean}
  */
 proto.lodas.SheetInfo.prototype.hasResultTime = function() {
-  return jspb.Message.getField(this, 7) != null;
+  return jspb.Message.getField(this, 10) != null;
 };
 
 
 /**
- * optional google.protobuf.Timestamp created_time = 8;
+ * optional google.protobuf.Timestamp created_time = 11;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.lodas.SheetInfo.prototype.getCreatedTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 8));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 11));
 };
 
 
@@ -2804,7 +2954,7 @@ proto.lodas.SheetInfo.prototype.getCreatedTime = function() {
  * @return {!proto.lodas.SheetInfo} returns this
 */
 proto.lodas.SheetInfo.prototype.setCreatedTime = function(value) {
-  return jspb.Message.setWrapperField(this, 8, value);
+  return jspb.Message.setWrapperField(this, 11, value);
 };
 
 
@@ -2822,17 +2972,17 @@ proto.lodas.SheetInfo.prototype.clearCreatedTime = function() {
  * @return {boolean}
  */
 proto.lodas.SheetInfo.prototype.hasCreatedTime = function() {
-  return jspb.Message.getField(this, 8) != null;
+  return jspb.Message.getField(this, 11) != null;
 };
 
 
 /**
- * optional google.protobuf.Timestamp updated_time = 9;
+ * optional google.protobuf.Timestamp updated_time = 12;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.lodas.SheetInfo.prototype.getUpdatedTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 9));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 12));
 };
 
 
@@ -2841,7 +2991,7 @@ proto.lodas.SheetInfo.prototype.getUpdatedTime = function() {
  * @return {!proto.lodas.SheetInfo} returns this
 */
 proto.lodas.SheetInfo.prototype.setUpdatedTime = function(value) {
-  return jspb.Message.setWrapperField(this, 9, value);
+  return jspb.Message.setWrapperField(this, 12, value);
 };
 
 
@@ -2859,7 +3009,7 @@ proto.lodas.SheetInfo.prototype.clearUpdatedTime = function() {
  * @return {boolean}
  */
 proto.lodas.SheetInfo.prototype.hasUpdatedTime = function() {
-  return jspb.Message.getField(this, 9) != null;
+  return jspb.Message.getField(this, 12) != null;
 };
 
 

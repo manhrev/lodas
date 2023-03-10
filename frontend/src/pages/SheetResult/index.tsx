@@ -58,6 +58,9 @@ const SheetResult = () => {
                 <strong>Tỉ lệ</strong>
               </TableCell>
               <TableCell>
+                <strong>Tỉ lệ chia</strong>
+              </TableCell>
+              <TableCell>
                 <strong>Trạng thái</strong>
               </TableCell>
               <TableCell>
@@ -80,10 +83,17 @@ const SheetResult = () => {
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{AreaStr[row.area]}</TableCell>
                 <TableCell>{ProvinceStr[row.province]}</TableCell>
-                <TableCell>{row.ratio}</TableCell>
-                <TableCell>{SheetStatusStr[row.status]}</TableCell>
-                <TableCell>{formatDate(row.resultTime)}</TableCell>
-                <TableCell>{formatDateTime(row.updatedTime)}</TableCell>
+                <TableCell align="right">{row.ratio}</TableCell>
+                <TableCell align="right">{row.winRatio}</TableCell>
+                <TableCell align="right">
+                  {SheetStatusStr[row.status]}
+                </TableCell>
+                <TableCell align="right">
+                  {formatDate(row.resultTime)}
+                </TableCell>
+                <TableCell align="right">
+                  {formatDateTime(row.updatedTime)}
+                </TableCell>
                 <TableCell>
                   <Button
                     variant="contained"
@@ -94,9 +104,9 @@ const SheetResult = () => {
                   >
                     Xem
                   </Button>
-                  <Button variant="contained" size="small" color="error">
+                  {/* <Button variant="contained" size="small" color="error">
                     Xóa
-                  </Button>
+                  </Button> */}
                 </TableCell>
               </TableRow>
             ))}
