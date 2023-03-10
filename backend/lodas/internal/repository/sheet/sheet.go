@@ -97,7 +97,7 @@ func (s *sheetImpl) Create(
 			DE2: 70,
 			DE3: 600,
 			DA:  600,
-		}).SetCreatedTime(time.Now().In(time.FixedZone("UTC+7", 7*60*60)).Save(ctx)
+		}).SetCreatedTime(time.Now().In(time.FixedZone("UTC+7", 7*60*60))).Save(ctx)
 		if err != nil {
 			return nil, status.Internal(err.Error())
 		}
