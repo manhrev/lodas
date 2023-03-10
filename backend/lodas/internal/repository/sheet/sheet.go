@@ -12,8 +12,8 @@ import (
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent"
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent/betsetting"
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent/record"
+	"github.com/manhrev/lodas/backend/lodas/pkg/ent/schema"
 	"github.com/manhrev/lodas/backend/lodas/pkg/ent/sheet"
-
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -88,11 +88,24 @@ func (s *sheetImpl) Create(
 	win_ratio float64,
 	result_time *timestamppb.Timestamp,
 ) (*ent.Sheet, error) {
+	newBetSetting := &ent.BetSetting{}
 	newBetSettings, err := s.entClient.BetSetting.Query().Where(betsetting.UserIDEQ(userId)).Order(ent.Desc(betsetting.FieldCreatedTime)).All(ctx)
 	if err != nil || len(newBetSettings) == 0 {
+		newBetSetting, err = s.entClient.BetSetting.Create().SetUserID(userId).SetValues(&schema.BetSettingMap{
+			LO2: 70,
+			LO3: 600,
+			DE2: 70,
+			DE3: 600,
+			DA:  600,
+		}).SetCreatedTime(time.Now().In(time.FixedZone("UTC+7", 7*60*60)).Save(ctx)
+		if err != nil {
+			return nil, status.Internal(err.Error())
+		}
 		return nil, status.Internal(err.Error())
 	}
-	newBetSetting := newBetSettings[0]
+	else{
+		newBetSetting = newBetSettings[0]
+	}
 
 	createdSheet, err := s.entClient.Sheet.Create().
 		SetUserID(userId).

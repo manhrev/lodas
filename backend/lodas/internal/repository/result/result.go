@@ -14,10 +14,12 @@ import (
 )
 
 type Result interface {
+	//Get result from nhà cái
 	CreateDaily(
 		ctx context.Context,
 		results map[lodas.Province]*crawler.KQXS,
 	) error
+	//Check result daily
 	CheckResultDaily(
 		ctx context.Context,
 	) error
