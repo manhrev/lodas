@@ -23,7 +23,9 @@ func New(entClient *ent.Client) *CronTask {
 }
 
 func (t *CronTask) Run() {
-	t.cron.AddFunc("* 19 * * *", t.dailyJob)
+	t.cron.AddFunc("0 18 * * *", t.dailyJob)
+	t.cron.AddFunc("0 19 * * *", t.dailyJob)
+	t.cron.AddFunc("0 20 * * *", t.dailyJob)
 	t.cron.Start()
 	//time.AfterFunc(time.Duration(1*time.Second), func() {})
 }
@@ -37,7 +39,9 @@ func (t *CronTask) dailyJob() {
 	if err != nil {
 		log.Printf("Error while creating daily result: %v", err)
 	}
-
-	// check kết quả xổ số
-
+	//Check result daily
+	err = t.repository.Result.CheckResultDaily(ctx)
+	if err != nil {
+		log.Printf("Error while checking daily result: %v", err)
+	}
 }

@@ -2,7 +2,6 @@ package result
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	"github.com/manhrev/lodas/backend/lodas/internal/service/crawler"
@@ -69,7 +68,6 @@ func (r *resultImpl) CheckResultDaily(
 		return status.Internal(err.Error())
 	}
 	for _, sheetObj := range sheets {
-		fmt.Println("manhj lol", sheetObj)
 		betSettingObj, err := r.entClient.BetSetting.Query().Where(
 			betsetting.HasSheetsWith(sheet.IDEQ(sheetObj.ID)),
 			betsetting.UserIDEQ(sheetObj.UserID),
