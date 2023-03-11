@@ -102,8 +102,7 @@ func (s *sheetImpl) Create(
 			return nil, status.Internal(err.Error())
 		}
 		return nil, status.Internal(err.Error())
-	}
-	else{
+	} else {
 		newBetSetting = newBetSettings[0]
 	}
 
