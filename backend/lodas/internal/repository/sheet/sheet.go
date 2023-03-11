@@ -91,12 +91,11 @@ func (s *sheetImpl) Create(
 	newBetSetting := &ent.BetSetting{}
 	newBetSettings, err := s.entClient.BetSetting.Query().Where(betsetting.UserIDEQ(userId)).Order(ent.Desc(betsetting.FieldCreatedTime)).All(ctx)
 	if err != nil {
-		if err != nil {
-			log.Printf("Error Create Sheet get bet setting: %v", err)
-			return nil, status.Internal(err.Error())
-		}
+		log.Printf("Error Create Sheet get bet setting: %v", err)
 		return nil, status.Internal(err.Error())
-	} else if len(newBetSettings) == 0 {
+	}
+
+	if len(newBetSettings) == 0 {
 		newBetSetting, err = s.entClient.BetSetting.Create().SetUserID(userId).SetValues(&schema.BetSettingMap{
 			LO2: 70,
 			LO3: 600,
