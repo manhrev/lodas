@@ -17,7 +17,7 @@ func (Result) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int64("id").Unique(),
 		field.Int64("province").Default(int64(lodas_pb.Province_UNSPECIFIED)),
-		field.Time("created_time").Default(time.Now()),
+		field.Time("created_time").Default(time.Now().In(time.FixedZone("UTC+7", 7*60*60))),
 		//map prize (enum) to string
 		field.JSON("prize_map", &PrizeMap{}),
 	}

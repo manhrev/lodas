@@ -46,7 +46,7 @@ func (b *betSettingImpl) Create(
 		DE2: betSetting.DE2,
 		DE3: betSetting.DE3,
 		DA:  betSetting.DA,
-	}).SetCreatedTime(time.Now()).Save(ctx)
+	}).SetCreatedTime(time.Now().In(time.FixedZone("UTC+7", 7*60*60))).Save(ctx)
 	if err != nil {
 		return nil, status.Internal(err.Error())
 	}

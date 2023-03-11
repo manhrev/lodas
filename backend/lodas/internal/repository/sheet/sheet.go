@@ -90,7 +90,13 @@ func (s *sheetImpl) Create(
 ) (*ent.Sheet, error) {
 	newBetSetting := &ent.BetSetting{}
 	newBetSettings, err := s.entClient.BetSetting.Query().Where(betsetting.UserIDEQ(userId)).Order(ent.Desc(betsetting.FieldCreatedTime)).All(ctx)
-	if err != nil || len(newBetSettings) == 0 {
+	if err != nil {
+		if err != nil {
+			log.Printf("Error Create Sheet get bet setting: %v", err)
+			return nil, status.Internal(err.Error())
+		}
+		return nil, status.Internal(err.Error())
+	} else if len(newBetSettings) == 0 {
 		newBetSetting, err = s.entClient.BetSetting.Create().SetUserID(userId).SetValues(&schema.BetSettingMap{
 			LO2: 70,
 			LO3: 600,
@@ -99,9 +105,9 @@ func (s *sheetImpl) Create(
 			DA:  600,
 		}).SetCreatedTime(time.Now().In(time.FixedZone("UTC+7", 7*60*60))).Save(ctx)
 		if err != nil {
+			log.Printf("Error Create Sheet create bet setting: %v", err)
 			return nil, status.Internal(err.Error())
 		}
-		return nil, status.Internal(err.Error())
 	} else {
 		newBetSetting = newBetSettings[0]
 	}
@@ -115,8 +121,8 @@ func (s *sheetImpl) Create(
 		SetWinRatio(float64(win_ratio)).
 		SetResultTime(result_time.AsTime()).
 		SetBetSetting(newBetSetting).
-		SetCreatedTime(time.Now()).
-		SetUpdatedTime(time.Now()).
+		SetCreatedTime(time.Now().In(time.FixedZone("UTC+7", 7*60*60))).
+		SetUpdatedTime(time.Now().In(time.FixedZone("UTC+7", 7*60*60))).
 		Save(ctx)
 
 	if err != nil {
@@ -210,7 +216,7 @@ func (s *sheetImpl) Update(
 		SetProvince(int64(province)).
 		SetRatio(float64(ratio)).
 		SetWinRatio(float64(win_ratio)).
-		SetUpdatedTime(time.Now()).
+		SetUpdatedTime(time.Now().In(time.FixedZone("UTC+7", 7*60*60))).
 		SetResultTime(result_time.AsTime()).
 		SetStatus(sheet_status).
 		Where(sheet.IDEQ(sheetId), sheet.UserIDEQ(userId)).

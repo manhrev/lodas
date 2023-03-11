@@ -72,7 +72,7 @@ func (r *recordImpl) Create(
 		SetCashAmount(cashAmount).
 		SetPrize(intList).
 		SetBetType(int64(betType)).
-		SetCreatedTime(time.Now()).
+		SetCreatedTime(time.Now().In(time.FixedZone("UTC+7", 7*60*60))).
 		Save(ctx)
 	if err != nil {
 		return nil, status.Internal(err.Error())
